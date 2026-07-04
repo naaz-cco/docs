@@ -1,5 +1,5 @@
 ---
-title: "Get Started with Llea on Shopify"
+title: "Install Llea and Get Your First Intent Scores on Shopify"
 sidebarTitle: "Quickstart"
 description: "Install Llea from the Shopify App Store, approve permissions, and see real-time purchase-intent scores on your visitors within 24 hours. No code required."
 ---
@@ -29,7 +29,7 @@ Before you begin, confirm you have the following:
     | `read_customers` | Build customer profiles and stitch visitor IDs to known customers |
     | `read_orders` | Access purchase history to train the per-store intent model |
     | `read_products` | Read product and variant data to score product-level intent |
-    | Web pixel | Register the lightweight analytics pixel on your storefront |
+    | Web pixel | Auto-register the lightweight analytics pixel on your storefront |
 
     Click **Install** to approve all four scopes and complete the OAuth handshake. Llea will never write orders, modify products, or alter customer records.
   </Step>
@@ -61,9 +61,19 @@ Before you begin, confirm you have the following:
   </Step>
 
   <Step title="Connect your first marketing channel">
-    Intent scores become actionable when you connect Llea to the channels you use to reach customers. Head to the [Integrations Overview](/integrations/overview) to connect Klaviyo, a WhatsApp provider, an SMS platform, or your ad retargeting pixels.
+    Intent scores become actionable when you connect Llea to the channels you use to reach customers. Head to the [Integrations Overview](/integrations/overview) to set up any of the following:
 
-    Once a channel is connected, you can set an intent threshold — for example, trigger a Klaviyo flow only when a visitor's score exceeds 75 — and Llea will fire the appropriate event via Shopify Flow when that threshold is crossed.
+    | Integration | How it works |
+    |---|---|
+    | **Shopify Flow triggers** | Fires a custom Flow event when a visitor's score crosses your threshold — routes to Klaviyo, SMS tools, WhatsApp providers, and more |
+    | **HTTP webhook hand-off** | Sends intent events to any endpoint for tools without a native Flow connector |
+    | **Klaviyo live segment sync** | Keeps a Klaviyo segment continuously refreshed with your current high-intent profiles |
+    | **Meta & Google Ads weekly export** | Delivers your top-intent cohort weekly as a lookalike-seed audience for retargeting |
+    | **Shopify customer tag sync** | Writes intent-tier tags to Shopify customer records so any tag-aware tool can act on them |
+    | **Alerts via email, Slack, or webhook** | Notifies your team the moment a high-value customer crosses a threshold you care about |
+    | **CSV export** | Downloads any scored segment for offline analysis or import into any platform |
+
+    Start with the channel you use most today. A common first step is connecting Klaviyo and setting an intent threshold of 75 — Llea will fire a Shopify Flow event every time a visitor's score crosses that line.
   </Step>
 </Steps>
 
@@ -87,7 +97,7 @@ Use this table as a reference for what to expect in the days and weeks following
 |---|---|---|
 | **Live scores visible** | Hour 24 | Review your top-scored visitors; confirm the pixel is firing correctly |
 | **First integration connected** | Week 1 | Connect Klaviyo or your SMS provider; set your first intent threshold |
-| **First intent-triggered flow active** | Week 1 | Build a "ready to buy" flow that triggers when a visitor crosses your threshold |
+| **First intent-triggered flow active** | Week 1 | Build a 'ready to buy' flow that triggers when a visitor crosses your threshold |
 | **Model maturation begins** | Weeks 4–8 | Top-decile shoppers start converting at 4–7× your store average |
 | **Continuous learning** | Ongoing | Model updates automatically with every new purchase and browse session |
 

@@ -1,5 +1,5 @@
 ---
-title: "Privacy, Security, and Compliance in Llea"
+title: "Privacy, Security, and Compliance: How Llea Protects Data"
 sidebarTitle: "Privacy & Security"
 description: "Llea is GDPR, UK GDPR, CCPA/CPRA, DPDPA, and Swiss FADP compliant. Your shoppers' data stays in your tenant — never pooled, never sold."
 ---
@@ -67,7 +67,7 @@ Deletion is automatic, audited, and complete. You do not need to raise a support
     Shopify fires the `app/uninstalled` webhook immediately. Llea receives it and begins store-level data deletion. If the uninstall was accidental, reinstalling within 48 hours restores your data.
   </Step>
   <Step title="Hour 48 — Final purge confirmed">
-    Shopify fires the `shop/redact` webhook. Llea completes the deletion of all store-level data from the live database. The event is logged in the `compliance_requests` audit table (no shopper PII — just the proof of deletion, retained for 2 years for your DPO's records).
+    Shopify fires the `shop/redact` webhook. Llea completes the deletion of all store-level data from the live database. The event is logged in an internal audit record (no shopper PII — just the proof of deletion, retained for 2 years for your DPO's records).
   </Step>
   <Step title="Day 30 — Encrypted backups rotate out">
     Llea holds encrypted backups for security and disaster recovery. These expire automatically within 30 days. By day 30, no trace of your data remains anywhere in Llea's infrastructure.
@@ -90,14 +90,14 @@ Llea's technical and organisational measures are defined in Annex II of the DPA 
 
 - **Encryption in transit:** TLS 1.2+ enforced on every endpoint
 - **Encryption at rest:** AES-256 on the managed Supabase database and storage
-- **Row-Level Security:** applied to every multi-tenant table — per-shop credentials are never shared across stores
+- **Tenant isolation:** per-shop data partitioning enforced at the database layer — per-shop credentials are never shared across stores
 - **HMAC SHA-256 webhook verification:** every Shopify webhook is verified against the per-shop client secret
 - **Per-shop OAuth credentials:** never reused across stores
 - **Least-privilege staff access:** role-based access control with MFA enforced on all staff accounts
-- **Audit logging:** application logs and a `compliance_requests` audit trail for all GDPR webhook events
+- **Audit logging:** application logs and an internal audit trail for all GDPR webhook events
 - **72-hour breach notification:** Llea notifies you without undue delay, and in any event within 72 hours, of a personal data breach affecting your data
 - **Automated backup expiry:** encrypted backups rotate and expire within 30 days
-- **Content sanitisation:** HTML content rendered in the app is processed via DOMPurify
+- **Content sanitisation:** HTML content rendered in the app is sanitised before display
 
 ## Data Processing Agreement (DPA)
 

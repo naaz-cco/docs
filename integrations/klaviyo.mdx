@@ -1,7 +1,7 @@
 ---
 title: "Connect Llea to Klaviyo for Intent-Gated Email Flows"
 sidebarTitle: "Klaviyo"
-description: "Sync Llea intent segments into Klaviyo as live lists and gate your existing flows so every send reaches only high-intent shoppers."
+description: "Connect Llea to Klaviyo via Shopify Flow to gate your existing flows on real purchase intent and personalise every send automatically."
 ---
 
 Llea and Klaviyo divide the work cleanly: Llea decides who is worth reaching, when to reach them, which product to surface, and what personalised content to send — then hands that signal to Klaviyo, which owns deliverability, templates, A/B testing, and reporting. Nothing about your existing Klaviyo account changes. Your flows, lists, and templates stay exactly where they are; Llea simply becomes the intent filter that makes all of them more precise.
@@ -84,7 +84,7 @@ Llea pre-generates a unique discount code for every high-intent shopper before t
 
 To add the code to your Klaviyo template, place the following variable anywhere in the email body or subject line:
 
-```
+```liquid
 {{ event.personalised_discount_code }}
 ```
 

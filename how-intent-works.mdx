@@ -1,5 +1,5 @@
 ---
-title: "How Llea Scores Purchase Intent: 0–100 Explained"
+title: "How Llea Scores Purchase Intent: The 0–100 Model Explained"
 sidebarTitle: "Intent Scoring"
 description: "Learn how Llea turns 100+ behavioural, transactional, contextual, and demographic signals into a real-time 0–100 purchase-intent score for every shopper."
 ---
@@ -83,20 +83,26 @@ On a mature Llea model — typically after 4–8 weeks of live data collection �
 
 ## Using the Score
 
-Intent scores are most powerful when they feed directly into automated decision-making. Here are four concrete ways to put the score to work.
+Intent scores are most powerful when they feed directly into automated decision-making. Here are the concrete ways to put the score to work.
 
 <CardGroup cols={2}>
   <Card title="Build a ready-to-buy list" icon="list-check">
-    Maintain a continuously refreshed audience of visitors whose score has crossed your threshold. Use this list as the trigger population for intent-based flows in Klaviyo, Postscript, or your WhatsApp provider.
+    Maintain a continuously refreshed audience of visitors whose score has crossed your threshold. Use this list as the trigger population for intent-based flows in Klaviyo, Postscript, or your WhatsApp provider. Klaviyo live segment sync keeps this audience up to date automatically.
   </Card>
   <Card title="Trigger on threshold crossing" icon="bell">
-    Fire an email, WhatsApp message, or SMS the moment a visitor's score crosses your configured threshold — not on a fixed schedule. Reaching out when intent is peaking outperforms scheduled batch sends.
+    Fire an email, WhatsApp message, or SMS the moment a visitor's score crosses your configured threshold — via Shopify Flow custom event triggers or an HTTP webhook hand-off to any endpoint. Reaching out when intent is peaking outperforms scheduled batch sends.
   </Card>
   <Card title="Suppress low-intent shoppers" icon="ban">
     Exclude visitors scoring below a minimum threshold from promotional blast campaigns. You spend less, your sending domain stays healthier, and your message-to-conversion rate improves immediately.
   </Card>
   <Card title="Identify high-intent products" icon="magnifying-glass">
-    Review which products are generating the most organic high-intent engagement before any outreach. These are candidates for inventory prioritisation, early-access campaigns, and ad retargeting audiences.
+    Review which products are generating the most organic high-intent engagement before any outreach. These are candidates for inventory prioritisation, early-access campaigns, and ad retargeting audiences — exportable weekly to Meta and Google Ads.
+  </Card>
+  <Card title="Sync tags and export data" icon="tag">
+    Use Shopify customer tag sync to write intent-tier tags directly to customer records, making scores available to any tag-aware tool in your stack. Export any scored segment to CSV for offline analysis or bulk import.
+  </Card>
+  <Card title="Get notified on high-value activity" icon="bell">
+    Set up alerts via email, Slack, or webhook so your team is notified the moment a key customer crosses an intent threshold — no need to check the dashboard manually.
   </Card>
 </CardGroup>
 
@@ -119,5 +125,5 @@ Understanding Llea's boundaries is as important as understanding its capabilitie
 </Accordion>
 
 <Accordion title="No training on your data for foundation models">
-  Llea uses AI infrastructure (Google Cloud Vertex AI) for copy generation and ranking. Per Google Cloud's Generative AI terms, your prompts and data are not used to train Google's foundation models. Llea also does not authorise any sub-processor to use merchant or shopper data for foundation model training.
+  Llea does not authorise any sub-processor to use merchant or shopper data for foundation model training. Your prompts, customer data, and signal events are not used to train any external AI model.
 </Accordion>
