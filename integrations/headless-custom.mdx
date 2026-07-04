@@ -1,0 +1,118 @@
+---
+title: "Llea on Headless and Custom Storefronts"
+sidebarTitle: "Headless & Custom"
+description: "Add the Llea client SDK to a Hydrogen, Next.js, or custom React storefront in ~20 lines of code to enable full intent scoring and Flow triggers."
+---
+
+Standard Shopify themes get Llea's Web Pixel automatically at install — no code required. If your storefront is headless (Hydrogen, Next.js, or any custom React build) and does not run through Shopify's Online Store theme runtime, the Web Pixel cannot register itself automatically. In that case you add Llea's lightweight client SDK directly to your storefront instead. The SDK is small, loads asynchronously, and once installed gives you the same intent scoring and Shopify Flow triggers as the standard pixel.
+
+## Do you need the SDK?
+
+<Accordion title="Standard Shopify themes (Dawn, Impulse, any Theme Store theme)">
+  You do **not** need the SDK. Install Llea from the Shopify App Store and the Web Pixel registers automatically. No theme edits or code changes are required.
+</Accordion>
+
+<Accordion title="Headless storefronts (Hydrogen, Next.js, custom React)">
+  You **do** need the SDK. Your storefront bypasses the Online Store theme runtime, so the automatic Web Pixel cannot load. Follow the installation steps below to add the SDK to your storefront entry point.
+</Accordion>
+
+<Accordion title="Shopify Plus with custom checkout.liquid">
+  You do **not** need additional SDK work for checkout. The Web Pixel API captures checkout events regardless of checkout customisations. Install Llea as normal and checkout events will flow through automatically.
+</Accordion>
+
+## Installing the SDK
+
+<Steps>
+  <Step title="Install Llea from the Shopify App Store">
+    Add the Llea app to your store through the **Shopify App Store** as usual and approve the OAuth scopes. This step is required even for headless installs — it connects your Shopify store data (orders, customers) to Llea for model training.
+  </Step>
+  <Step title="Copy your store API key">
+    In the Llea dashboard, go to **Settings → SDK**. Copy the API key shown for your store. Each store has a unique key; if you run multiple stores, repeat this process for each one.
+  </Step>
+  <Step title="Add the LleaProvider to your storefront entry point">
+    Create a `LleaProvider` component and wrap your application root with it. The snippet below loads the Llea SDK asynchronously so it does not block render or affect your Lighthouse score.
+
+    ```jsx LleaProvider.jsx
+    import { useEffect } from 'react';
+
+    export function LleaProvider({ shopDomain, children }) {
+      useEffect(() => {
+        // Load Llea SDK asynchronously
+        const script = document.createElement('script');
+        script.src = 'https://cdn.llea.ai/sdk/v1/llea.min.js';
+        script.async = true;
+        script.onload = () => {
+          window.llea('init', {
+            shop: shopDomain,
+            apiKey: process.env.PUBLIC_LLEA_API_KEY,
+          });
+        };
+        document.head.appendChild(script);
+      }, []);
+
+      return children;
+    }
+    ```
+
+    Pass your Shopify store domain (e.g. `your-store.myshopify.com`) as `shopDomain` and store your API key in an environment variable named `PUBLIC_LLEA_API_KEY`.
+  </Step>
+  <Step title="Initialise Llea with your store domain and API key">
+    The `init` call inside `script.onload` (shown above) handles initialisation. Confirm that `shopDomain` resolves to your `.myshopify.com` domain and that `PUBLIC_LLEA_API_KEY` is set in your environment before deploying.
+  </Step>
+  <Step title="Instrument product views and funnel events">
+    Headless storefronts cannot rely on automatic page-level event detection, so you call `window.llea('track', ...)` explicitly at each funnel step. Add the following calls in the appropriate components:
+
+    ```js
+    // Product view — call when the product page renders
+    window.llea('track', 'product_viewed', {
+      product_id: '8834512234',
+      variant_id: '44512234001',
+      price: 89.00,
+      currency: 'USD',
+    });
+
+    // Add to cart — call when the customer adds an item
+    window.llea('track', 'added_to_cart', {
+      product_id: '8834512234',
+      variant_id: '44512234001',
+      quantity: 1,
+    });
+
+    // Checkout started — call when the customer begins checkout
+    window.llea('track', 'checkout_started', {
+      cart_total: 89.00,
+      currency: 'USD',
+    });
+    ```
+  </Step>
+  <Step title="Identify logged-in customers">
+    To stitch anonymous browsing sessions to Shopify customer records, call `identify` whenever a customer logs in or submits their email address. Without this call, intent scores will be calculated but cannot be attached to a named customer profile for Flow triggers or segment exports.
+
+    ```js
+    // Call when the customer logs in or submits their email
+    window.llea('identify', {
+      customer_id: '7892341056', // Shopify customer ID
+      email: 'customer@example.com',
+    });
+    ```
+  </Step>
+  <Step title="Verify events in the Llea dashboard">
+    In the Llea dashboard, open the **Events** tab. Browse your storefront and trigger a product view. The event should appear in the dashboard within **5 minutes**. If no events appear after 10 minutes, double-check that `PUBLIC_LLEA_API_KEY` is set correctly and that the `LleaProvider` wraps the component tree where tracking calls are made.
+  </Step>
+</Steps>
+
+## Multi-store and multi-region setups
+
+If you operate more than one Shopify store on a single headless frontend (for example, a region-split setup), install Llea once per store and initialise the SDK with the correct `shopDomain` and `apiKey` for the active store. Each store gets its own model, its own dashboard, and — for merchants with three or more stores — a roll-up view in Llea.
+
+## Performance
+
+The Llea SDK is designed to have no impact on storefront performance. It loads asynchronously (the same profile as the standard Web Pixel) and is under 14 KB gzipped. It does not run on the critical rendering path and does not block First Contentful Paint or Largest Contentful Paint.
+
+<Note>
+  Once the SDK is installed and events are flowing, intent scoring and Shopify Flow triggers work identically to the standard web pixel install. No additional configuration is needed in the Llea dashboard — your existing Flow automations and segment thresholds apply automatically.
+</Note>
+
+<Warning>
+  Do **not** install both the standard web pixel and the SDK on the same storefront. Running both will produce duplicate events and inflate intent scores, causing Flow triggers to fire incorrectly. If you are migrating from a standard theme to a headless build, disable the web pixel in Llea **Settings → SDK** before going live with the SDK.
+</Warning>

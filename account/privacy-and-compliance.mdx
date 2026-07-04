@@ -1,0 +1,147 @@
+---
+title: "Privacy, Security, and Compliance in Llea"
+sidebarTitle: "Privacy & Security"
+description: "Llea is GDPR, UK GDPR, CCPA/CPRA, DPDPA, and Swiss FADP compliant. Your shoppers' data stays in your tenant — never pooled, never sold."
+---
+
+Llea is built around a clear principle: your shoppers' data belongs to you and is processed only on your instructions. Llea holds compliance certifications across five regulatory regimes — GDPR, UK GDPR, CCPA/CPRA, India's DPDPA, and the Swiss FADP — and operates a deliberately small, audited set of sub-processors, each with a signed Data Processing Agreement and recognised security certifications. This page covers roles, compliance regimes, data storage, security measures, and your rights as a merchant.
+
+## Data Roles: Who Controls What
+
+Under GDPR and equivalent laws, every piece of personal data has a **controller** (the party who decides why it's processed) and a **processor** (the party who acts on the controller's instructions).
+
+| Role | Party | Data in scope | What that means in practice |
+|---|---|---|---|
+| **Controller** | You (the merchant) | Your shoppers' personal data | You decide what Llea does with your customer data. Llea acts only on your documented instructions. |
+| **Processor** | Llea (llea.ai) | Shopper identifiers, order data, behavioural events, intent scores | Llea processes shopper data solely to provide the app's features. It never uses shopper data for its own purposes. |
+| **Controller** | Llea (llea.ai) | Your merchant account data (billing, staff) | Llea controls its own billing and account administration records. |
+
+The merchant–processor relationship is formalised in Llea's [Data Processing Agreement](/account/privacy-and-compliance#data-processing-agreement-dpa), which is accepted automatically when you install the app.
+
+## Compliance Regimes
+
+| Regime | Llea's implementation |
+|---|---|
+| **GDPR (EU/EEA)** | Controller/processor DPA in place; EU Standard Contractual Clauses (Modules 2 & 3) for international transfers; 72-hour breach notification; Art. 28 sub-processor authorisation; data subject rights routed via Shopify GDPR webhooks. |
+| **UK GDPR** | UK International Data Transfer Addendum (UK IDTA) applied to SCCs; UK supervisory authority recognised as competent authority. |
+| **CCPA / CPRA (California)** | Notice at collection provided; no sale or sharing of personal information; no use for cross-context behavioural advertising; opt-out and limit-use mechanisms honoured; Global Privacy Control (GPC) signals respected. |
+| **DPDPA (India, 2023)** | Consent-based processing; data principal rights honoured via the same Shopify GDPR webhook path used for EU/UK requests. |
+| **Swiss FADP** | Swiss addendum to SCCs applied for transfers out of Switzerland. |
+
+## Where Your Data Lives: Sub-Processors
+
+Llea runs on a small, deliberately chosen set of sub-processors. Every vendor below has a signed DPA and recognised certifications. Llea gives merchants **30 days' notice** before adding or replacing any sub-processor that materially affects shopper data.
+
+| Vendor | Purpose | Location | Certifications |
+|---|---|---|---|
+| **Supabase** | Database, auth, edge functions, storage | US | SOC 2 Type II, HIPAA |
+| **Vercel** | Hosting (marketing site + app frontend) | US / global edge | SOC 2 Type II, ISO 27001, GDPR, DPF |
+| **Google Cloud: Vertex AI (Gemini)** | LLM inference — copy generation and ranking (**no training on customer data**) | US / EU (regional endpoint) | SOC 2 Type II, ISO 27001/27017/27018, HIPAA, GDPR, DPF |
+| **PostHog Cloud** | Product analytics | EU / US | SOC 2 Type II, ISO 27001, HIPAA, GDPR |
+| **Shopify** | App platform, billing, webhooks | Global | SOC 2/3, PCI DSS Level 1 |
+| **Resend** | Transactional email | US | SOC 2 Type II |
+| **Crisp** | Marketing-site support chat only (no app data passes through Crisp) | EU | GDPR (EU-hosted) |
+
+<Info>
+The canonical, versioned sub-processor list is maintained in the [Llea Privacy Policy](https://www.llea.ai/privacy) and is updated there before any change goes live. International transfers rely on EU SCCs (Modules 2 and 3), the UK IDTA, the Swiss addendum, and the EU–US Data Privacy Framework where the receiving sub-processor is certified.
+</Info>
+
+## What Llea Does Not Do
+
+<Note>
+**These are hard limits, not aspirations.**
+
+- **No cross-merchant data sharing.** Your shoppers' intent profiles never leave your store's tenant boundary. Llea does not pool data across customers.
+- **No training of foundation models on customer data.** Each merchant's intent model is trained only on their own store's data. Google Cloud Vertex AI is contractually barred from training its foundation models on customer prompts or responses.
+- **No browser fingerprinting.** Pseudonymous visitor IDs are set via first-party cookies only. Cookies are the sole persistent identifier.
+- **No selling or sharing with ad networks or third parties.** Llea does not sell, rent, or share shopper data with any third party, including advertising networks.
+- **No cross-context behavioural advertising (CCPA/CPRA).** Shopper data is never used to serve ads on other platforms or properties.
+</Note>
+
+## Data Deletion on Uninstall
+
+Deletion is automatic, audited, and complete. You do not need to raise a support ticket.
+
+<Steps>
+  <Step title="Hour 0 — You click Remove app in Shopify">
+    Shopify fires the `app/uninstalled` webhook immediately. Llea receives it and begins store-level data deletion. If the uninstall was accidental, reinstalling within 48 hours restores your data.
+  </Step>
+  <Step title="Hour 48 — Final purge confirmed">
+    Shopify fires the `shop/redact` webhook. Llea completes the deletion of all store-level data from the live database. The event is logged in the `compliance_requests` audit table (no shopper PII — just the proof of deletion, retained for 2 years for your DPO's records).
+  </Step>
+  <Step title="Day 30 — Encrypted backups rotate out">
+    Llea holds encrypted backups for security and disaster recovery. These expire automatically within 30 days. By day 30, no trace of your data remains anywhere in Llea's infrastructure.
+  </Step>
+</Steps>
+
+## Shopify GDPR Webhooks
+
+Llea implements and HMAC-verifies all three mandatory Shopify GDPR webhooks against your per-shop client secret:
+
+| Webhook | What Llea does | SLA |
+|---|---|---|
+| `customers/data_request` | Compiles the shopper data Llea holds and makes it available to you (the merchant) | Within 30 days |
+| `customers/redact` | Deletes the identified shopper's records from Llea's database and all downstream caches | On receipt |
+| `shop/redact` | Deletes all store-level data from Llea's live database | 48 hours after uninstall |
+
+## Security Measures
+
+Llea's technical and organisational measures are defined in Annex II of the DPA and include:
+
+- **Encryption in transit:** TLS 1.2+ enforced on every endpoint
+- **Encryption at rest:** AES-256 on the managed Supabase database and storage
+- **Row-Level Security:** applied to every multi-tenant table — per-shop credentials are never shared across stores
+- **HMAC SHA-256 webhook verification:** every Shopify webhook is verified against the per-shop client secret
+- **Per-shop OAuth credentials:** never reused across stores
+- **Least-privilege staff access:** role-based access control with MFA enforced on all staff accounts
+- **Audit logging:** application logs and a `compliance_requests` audit trail for all GDPR webhook events
+- **72-hour breach notification:** Llea notifies you without undue delay, and in any event within 72 hours, of a personal data breach affecting your data
+- **Automated backup expiry:** encrypted backups rotate and expire within 30 days
+- **Content sanitisation:** HTML content rendered in the app is processed via DOMPurify
+
+## Data Processing Agreement (DPA)
+
+Llea's DPA is published at [llea.ai/dpa](https://www.llea.ai/dpa) and is incorporated automatically into your subscription on installation. You do not need to sign or countersign anything to be covered.
+
+<Tabs>
+  <Tab title="Automatic Acceptance">
+    By installing or continuing to use the Llea Shopify app, you accept the DPA. The acceptance is logged at the time of install. No separate action is required.
+  </Tab>
+  <Tab title="Signed Counterpart">
+    If your procurement process or DPO requires a wet or electronic signed counterpart of the DPA for your records, email [admin@llea.ai](mailto:admin@llea.ai) with the subject line "DPA signed counterpart request". Llea will return a countersigned copy.
+  </Tab>
+  <Tab title="What the DPA Covers">
+    The DPA covers the controller/processor relationship, sub-processor authorisation (with 30 days' notice of changes), international transfer mechanisms (SCCs Modules 2 & 3, UK IDTA, Swiss addendum), technical and organisational security measures, breach notification, audit rights, and data deletion on termination.
+  </Tab>
+</Tabs>
+
+## Shopper Rights and Opt-Out
+
+Shoppers exercise their data rights through **you, the merchant** — you are their data controller. The flow is:
+
+<Steps>
+  <Step title="Shopper contacts the merchant">
+    The shopper reaches out to the store they purchased from. As the controller, you submit the relevant Shopify GDPR request (data access, deletion, or correction) through your Shopify admin. This reaches Llea automatically via the HMAC-verified webhook.
+  </Step>
+  <Step title="Fallback: shopper contacts Llea directly">
+    If the shopper cannot reach the merchant, they can email [admin@llea.ai](mailto:admin@llea.ai). Llea will route the request to the merchant and process the relevant Shopify webhook on their behalf.
+  </Step>
+  <Step title="Browser-level opt-out">
+    Llea honours **Global Privacy Control (GPC)** signals and **Do Not Track** headers automatically. No action is required from you for these to take effect.
+  </Step>
+</Steps>
+
+## Contact and DPO
+
+<CardGroup cols={2}>
+  <Card title="Data requests and DPA" icon="envelope" href="mailto:admin@llea.ai">
+    **admin@llea.ai**
+
+    For data subject requests, DPA signed counterpart requests, sub-processor enquiries, and general compliance questions.
+  </Card>
+  <Card title="Data Protection Officer" icon="shield-check" href="mailto:riyaz@llea.ai">
+    **riyaz@llea.ai**
+
+    Muhammad Riyaz — DPO and Privacy Contact at LLEA DATA SCIENCE PRIVATE LIMITED.
+  </Card>
+</CardGroup>

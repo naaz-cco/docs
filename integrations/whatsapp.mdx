@@ -1,0 +1,90 @@
+---
+title: "WhatsApp Integration: Reach Top-Intent Shoppers"
+sidebarTitle: "WhatsApp"
+description: "Connect Wati, AiSensy, Interakt, or Gallabox to Llea via Shopify Flow to send personalised WhatsApp messages to your highest-intent shoppers."
+---
+
+Llea reserves WhatsApp for the shoppers who mean business — those with an intent score of 90 or above. At that threshold, a direct offer via WhatsApp converts within a 24–48 hour window, making it the highest-ROI channel in your stack. Llea supports four WhatsApp Business providers: **Wati**, **AiSensy**, **Interakt**, and **Gallabox**. Each connects through Shopify Flow (via the provider's native Flow connector or an HTTP webhook, depending on what your provider exposes), so your existing templates and opt-in lists stay exactly where they are.
+
+## When Llea Triggers a WhatsApp Message
+
+Llea fires a Shopify Flow event the moment a shopper's intent score crosses your configured threshold. The default threshold is **90**, placing these shoppers in the highest-intent band where direct, time-sensitive offers perform best. Once triggered, the conversion window is 24–48 hours — act fast, and the message lands when purchase intent is at its peak.
+
+<Info>
+  You can adjust the intent score threshold in your Llea dashboard under **Settings → Channel Routing**. The default of 90 is the recommended starting point for WhatsApp.
+</Info>
+
+## Connect Your WhatsApp Provider
+
+<Tabs>
+  <Tab title="Wati">
+    <Steps>
+      <Step title="Enable the Wati Shopify connector">
+        In your Wati dashboard, go to **Integrations → Shopify** and enable the Shopify app connector. Install the Wati app from the Shopify App Store if you have not done so already. Wati registers a native Shopify Flow action once the connector is active.
+      </Step>
+      <Step title="Create a Shopify Flow Automation on the Llea event">
+        In Shopify admin, open **Flow** and create a new Automation. Set the trigger to the Llea **"High Intent Customer"** event. Add a condition: `intent_score is greater than or equal to 90` (or your custom threshold). This ensures only your top-intent shoppers enter the flow.
+      </Step>
+      <Step title="Add the Wati Send WhatsApp Message action">
+        Under the condition step, add a **Wati: Send WhatsApp Message** action. Select the approved message template you want to send. Wati will only allow templates that have already passed WhatsApp Business API approval — see the warning below if you have not submitted yours yet.
+      </Step>
+      <Step title="Map Llea event properties to your template variables">
+        In the Wati action panel, map the Llea event properties to your template placeholders. Use the values listed in the [Message Template Variables](#message-template-variables) section below to populate product name, customer name, discount code, and segment fields.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="AiSensy / Interakt / Gallabox">
+    <Steps>
+      <Step title="Install your provider's Shopify app">
+        Find your provider's app in the Shopify App Store (search for AiSensy, Interakt, or Gallabox) and install it. In your provider's dashboard, enable the Shopify integration so that a Flow connector or webhook endpoint becomes available.
+      </Step>
+      <Step title="Create a Shopify Flow Automation on the Llea event">
+        In Shopify admin, open **Flow** and create a new Automation. Set the trigger to the Llea **"High Intent Customer"** event. Add a condition: `intent_score is greater than or equal to 90`. This filters the flow to your highest-intent shoppers only.
+      </Step>
+      <Step title="Add your provider's message action or Send HTTP Request">
+        If your provider exposes a native Flow action (such as **AiSensy: Send WhatsApp** or **Gallabox: Send Message**), add that action and select your approved template. If your provider does not yet have a native connector, add a **Send HTTP Request** action instead — paste in your provider's API endpoint, include your API key in the headers, and pass the template ID and recipient number in the request body.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+## Message Template Variables
+
+Llea passes the following properties on every **"High Intent Customer"** Flow event. Reference these in your WhatsApp template variables to send a fully personalised message without any manual segmentation.
+
+<CardGroup cols={2}>
+  <Card title="Recommended Product" icon="tag">
+    `{{ trigger.recommended_product_title }}`
+
+    The specific product the shopper engaged with most during their session — the item they are most likely to buy.
+  </Card>
+  <Card title="Customer First Name" icon="user">
+    `{{ customer.first_name }}`
+
+    The shopper's first name pulled directly from their Shopify customer record.
+  </Card>
+  <Card title="Behavioural Segment" icon="chart-bar">
+    `{{ trigger.customer_segment }}`
+
+    One of four segments: `impulse_buyer`, `researcher`, `hesitant_explorer`, or `loyalist`. Use this to switch template tone without building separate flows.
+  </Card>
+  <Card title="Personalised Discount Code" icon="ticket">
+    `{{ trigger.personalised_discount_code }}`
+
+    A single-use, named discount code generated for this shopper (for example, `SARAH-10`). Each code is unique and expires after redemption.
+  </Card>
+</CardGroup>
+
+## Cooldown and Opt-Out Handling
+
+Llea enforces a **48-hour cooldown** after every WhatsApp send. If a shopper does not respond within that window, Llea will not re-trigger a WhatsApp message for the same shopper until the cooldown expires — regardless of whether their intent score rises again. This prevents the brand-damaging experience of sending the same person three messages in a week.
+
+Opt-outs are honoured automatically and propagate across every channel. When a shopper opts out of WhatsApp, Llea suppresses them from Llea-triggered SMS and email flows as well. You do not need to manage cross-channel suppression lists manually.
+
+<Warning>
+  WhatsApp Business messaging requires approved message templates. Submit your templates for approval in your WhatsApp provider dashboard before going live. Llea fires the Flow event regardless — but your provider will reject the send if the template is not yet approved.
+</Warning>
+
+<Tip>
+  Segment-aware copy performs best on WhatsApp. Impulse buyers respond to urgency ("Only 3 left — grab yours now"), while Researchers want product detail and reassurance ("Here's why 400 customers chose this"). Use `{{ trigger.customer_segment }}` in a Flow condition to branch into two template variants without doubling your setup effort.
+</Tip>

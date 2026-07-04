@@ -1,0 +1,82 @@
+---
+title: "Llea Integrations: Connect Your Marketing Stack"
+sidebarTitle: "Overview"
+description: "Connect Llea to your email, SMS, WhatsApp, and ad platforms through Shopify Flow — without replacing a single tool you already use."
+---
+
+Llea slots into your existing marketing stack as an intent-routing brain, not a replacement for the tools you already depend on. Every integration follows the same pattern: your Shopify store feeds behavioural events and order history to Llea, Llea computes a real-time intent score for each shopper, and when that score crosses your configured threshold, it fires a Shopify Flow event that triggers your existing campaigns in whichever platform you use — Klaviyo, Mailchimp, Wati, Postscript, or anything else connected to Flow.
+
+## How the architecture works
+
+Data and decisions move through four stages in sequence:
+
+1. **Shopify Store** — Your storefront emits pixel events (page views, add-to-cart, checkout steps) alongside your historic order data.
+2. **Llea (intent scoring)** — Llea ingests those signals and runs a per-store model, producing a live intent score for every active shopper.
+3. **Shopify Flow (routing)** — When a shopper's score crosses your threshold, Llea fires a `High Intent Customer` event into Shopify Flow. Flow inspects the payload and routes the trigger to the right channel using its built-in conditions and connectors.
+4. **Delivery channels** — Your CEP (Klaviyo, Mailchimp, Wati, Postscript, and so on) receives the trigger and fires your existing campaign template. Nothing in your campaign setup changes — only the audience does.
+
+<Note>
+  All integrations require Shopify Flow to be active on your store. Flow is free and available on all Shopify plans — no paid upgrade required.
+</Note>
+
+## Available integrations
+
+<CardGroup cols={2}>
+  <Card title="Shopify Flow" icon="shuffle" href="/integrations/shopify-flow">
+    The routing hub for all intent events. Every threshold crossing starts here.
+  </Card>
+  <Card title="Klaviyo" icon="envelope-open-text" href="/integrations/klaviyo">
+    Live high-intent segment sync via Shopify Flow's native Klaviyo connector.
+  </Card>
+  <Card title="WhatsApp" icon="whatsapp" href="/integrations/whatsapp">
+    Trigger Wati, AiSensy, Interakt, and Gallabox through Flow or webhook.
+  </Card>
+  <Card title="SMS" icon="message-sms" href="/integrations/sms">
+    Route high-intent triggers to Postscript and Attentive via Shopify Flow.
+  </Card>
+  <Card title="Email Platforms" icon="at" href="/integrations/email-platforms">
+    Connect Mailchimp, Omnisend, ActiveCampaign, and Brevo through native Flow connectors.
+  </Card>
+  <Card title="Meta & Google Ads" icon="rectangle-ad" href="/integrations/meta-google-ads">
+    Weekly lookalike-cohort exports of your top-intent shoppers for retargeting and prospecting.
+  </Card>
+  <Card title="Headless & Custom" icon="code" href="/integrations/headless-custom">
+    Add Llea to Hydrogen, Next.js, and fully custom storefronts with a ~20-line client SDK.
+  </Card>
+</CardGroup>
+
+## Supported integrations at a glance
+
+| Integration | Category | Connection method |
+|---|---|---|
+| Shopify Flow | Routing hub | Built-in (Llea fires native Flow events) |
+| Klaviyo | Email / SMS | Shopify Flow native connector |
+| Mailchimp | Email | Shopify Flow native connector |
+| ActiveCampaign | Email / CRM | Shopify Flow native connector |
+| Omnisend | Email / SMS | Shopify Flow native connector |
+| Brevo | Email / SMS | Shopify Flow native connector |
+| Wati | WhatsApp | Shopify Flow or HTTP webhook |
+| AiSensy | WhatsApp | Shopify Flow or HTTP webhook |
+| Interakt | WhatsApp | Shopify Flow or HTTP webhook |
+| Gallabox | WhatsApp | Shopify Flow or HTTP webhook |
+| Postscript | SMS | Shopify Flow native connector |
+| Attentive | SMS | Shopify Flow native connector |
+| MoEngage | Mobile / CRM | HTTP webhook (native connector on roadmap) |
+| CleverTap | Mobile / CRM | HTTP webhook (native connector on roadmap) |
+| WebEngage | Mobile / CRM | HTTP webhook (native connector on roadmap) |
+| Meta Ads | Paid social | Weekly CSV / API cohort export |
+| Google Ads | Paid search | Weekly CSV / API cohort export |
+| Hydrogen (headless) | Storefront | Client SDK (~20 lines) |
+| Next.js (headless) | Storefront | Client SDK (~20 lines) |
+
+<Tip>
+  If your platform isn't listed, the **Send HTTP Request** action in Shopify Flow can reach virtually any webhook-enabled tool. [Contact support](mailto:support@llea.ai) if you'd like help setting it up.
+</Tip>
+
+## Multi-store merchants
+
+Install Llea once per store — each store runs its own intent model trained on that store's shoppers and catalog, and gets its own dedicated dashboard. If you manage three or more stores, a roll-up view becomes available in your Llea account so you can compare intent trends and performance across your entire portfolio without switching between dashboards.
+
+<Info>
+  Agency and brand-group accounts can request early access to the roll-up view by emailing [support@llea.ai](mailto:support@llea.ai). The roll-up is read-only; each store's settings and thresholds remain independent.
+</Info>

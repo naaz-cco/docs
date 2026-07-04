@@ -1,47 +1,100 @@
 ---
-title: "Quickstart"
-description: "Begin with a guide on the fastest path to a successful outcome"
+title: "Get Started with Llea on Shopify"
+sidebarTitle: "Quickstart"
+description: "Install Llea from the Shopify App Store, approve permissions, and see real-time purchase-intent scores on your visitors within 24 hours. No code required."
 ---
 
-Describe how someone begins using your product. What is the first thing they need to do? Are there any prerequisites?
-
-A quickstart should take someone from zero to using your product. They'll get a quick win and a sense of what they can accomplish.
+This guide walks you through everything you need to go from a fresh Llea installation to live intent scores on your storefront. The entire setup happens inside Shopify — you do not need to touch your theme, write any code, or involve a developer. From clicking "Install" to seeing your first scored visitor typically takes less than five minutes of active effort on your part.
 
 ## Prerequisites
 
-Before you begin, you must have:
+Before you begin, confirm you have the following:
 
-- Requirement one (for example, Node.js 18+, a free account, an API key)
-- Requirement two (for example, a compatible device, a compatible browser, a compatible operating system)
+- A Shopify store on any plan (including Basic)
+- An active Online Store theme (Llea's web pixel attaches to the Online Store channel)
+- Access to your Shopify Admin with permission to install apps and approve billing
 
-## Get started
+<Note>
+  If you run a headless or custom storefront rather than the standard Online Store channel, the automatic web pixel registration will not apply to your frontend. See [Headless & Custom Storefronts](/integrations/headless-custom) for SDK installation instructions.
+</Note>
+
+## Installation Steps
 
 <Steps>
-  <Step title="Install">
-    Describe how to install your product or sign up.
+  <Step title="Install from the Shopify App Store">
+    Open [Llea on the Shopify App Store](https://apps.shopify.com/llea-ai) and click **Add app**. Shopify will ask you to review and approve the following OAuth permission scopes before the installation completes:
 
-    ```bash
-    npm install your-package
-    ```
+    | Scope | Why Llea needs it |
+    |---|---|
+    | `read_customers` | Build customer profiles and stitch visitor IDs to known customers |
+    | `read_orders` | Access purchase history to train the per-store intent model |
+    | `read_products` | Read product and variant data to score product-level intent |
+    | Web pixel | Register the lightweight analytics pixel on your storefront |
+
+    Click **Install** to approve all four scopes and complete the OAuth handshake. Llea will never write orders, modify products, or alter customer records.
   </Step>
-  <Step title="Configure">
-    Describe any setup or configuration needed before first use.
 
-    ```bash
-    your-cli init
-    ```
+  <Step title="Approve the billing plan">
+    After the OAuth approval, Shopify presents the Llea billing confirmation screen. Llea offers a **14-day free trial** — you will not be charged during this period. Billing is handled entirely through Shopify Billing; you do not need to enter a separate payment method in Llea.
+
+    Click **Approve** to start your trial. You can cancel at any time directly from **Shopify Admin → Settings → Billing & usage** before the trial ends.
   </Step>
-  <Step title="Run it">
-    Show the first thing a user does to see it working.
 
-    ```bash
-    your-cli start
-    ```
+  <Step title="Wait for the data backfill">
+    Once billing is approved, Llea immediately begins backfilling the last **90 days** of your store's order history. This gives the intent model a starting dataset to learn from before it sees any live traffic.
+
+    The backfill typically completes in approximately **one hour** depending on your order volume. You do not need to take any action during this time — Llea runs the backfill in the background via the Shopify Admin API.
+
+    <Tip>
+      This is a good time to run a Lighthouse performance audit on a key product page so you have a baseline to compare against after the pixel is live. Llea's pixel is ~14 KB gzipped, loads asynchronously, and is designed to add less than 50 ms to your Largest Contentful Paint.
+    </Tip>
+  </Step>
+
+  <Step title="Check your dashboard at the 24-hour mark">
+    Return to your Llea dashboard approximately 24 hours after installation. You should see:
+
+    - **Live intent scores** (0–100) on visitors currently browsing your store
+    - **Customer profiles** enriched with signal data from the backfilled order history
+    - **Segment distribution** showing how your existing customers spread across intent deciles
+
+    If fewer than 24 hours have passed or your store has very low traffic, scores may be limited. Give it the full 24-hour window before drawing conclusions.
+  </Step>
+
+  <Step title="Connect your first marketing channel">
+    Intent scores become actionable when you connect Llea to the channels you use to reach customers. Head to the [Integrations Overview](/integrations/overview) to connect Klaviyo, a WhatsApp provider, an SMS platform, or your ad retargeting pixels.
+
+    Once a channel is connected, you can set an intent threshold — for example, trigger a Klaviyo flow only when a visitor's score exceeds 75 — and Llea will fire the appropriate event via Shopify Flow when that threshold is crossed.
   </Step>
 </Steps>
 
-<Tip>
-  Give people a way to get help. This could be a link to a support page, a chat with a customer support agent, or a forum for your product.
+## What Happens in the First 24 Hours
 
-  Example: Need help? Reach out to us at [support@yourcompany.com](mailto:support@yourcompany.com).
+Understanding the sequence of events after installation helps you interpret what you see in the dashboard.
+
+| Event | Timing | What it means |
+|---|---|---|
+| Web pixel registered | Immediately after install | Llea begins capturing behavioural signals from live visitors |
+| OAuth scopes accepted | Immediately after install | Llea has read access to customers, orders, and products |
+| Data backfill starts | Within minutes of install | Last 90 days of orders feed into the model training dataset |
+| Backfill completes | ~1 hour | Purchase history is available; model begins initial training |
+| First intent scores appear | ~24 hours | Live visitors start receiving scores based on behaviour + history |
+
+## First Week Milestones
+
+Use this table as a reference for what to expect in the days and weeks following installation.
+
+| Milestone | When | What to do |
+|---|---|---|
+| **Live scores visible** | Hour 24 | Review your top-scored visitors; confirm the pixel is firing correctly |
+| **First integration connected** | Week 1 | Connect Klaviyo or your SMS provider; set your first intent threshold |
+| **First intent-triggered flow active** | Week 1 | Build a "ready to buy" flow that triggers when a visitor crosses your threshold |
+| **Model maturation begins** | Weeks 4–8 | Top-decile shoppers start converting at 4–7× your store average |
+| **Continuous learning** | Ongoing | Model updates automatically with every new purchase and browse session |
+
+<Tip>
+  Run a Lighthouse audit on a representative product page before and after installation to confirm there is no performance regression. Llea's pixel loads asynchronously so it should not block rendering, but it is good practice to verify this against your specific theme.
 </Tip>
+
+<Note>
+  Running a headless storefront (Hydrogen, Next.js Commerce, or a custom frontend not using the Shopify Online Store channel)? The automatic web pixel will not register on your custom frontend. Follow the [Headless & Custom Storefront SDK guide](/integrations/headless-custom) to instrument your frontend manually.
+</Note>

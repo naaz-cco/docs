@@ -1,0 +1,107 @@
+---
+title: "Connect Llea to Klaviyo for Intent-Gated Email Flows"
+sidebarTitle: "Klaviyo"
+description: "Sync Llea intent segments into Klaviyo as live lists and gate your existing flows so every send reaches only high-intent shoppers."
+---
+
+Llea and Klaviyo divide the work cleanly: Llea decides who is worth reaching, when to reach them, which product to surface, and what personalised content to send — then hands that signal to Klaviyo, which owns deliverability, templates, A/B testing, and reporting. Nothing about your existing Klaviyo account changes. Your flows, lists, and templates stay exactly where they are; Llea simply becomes the intent filter that makes all of them more precise.
+
+## How the integration works
+
+Llea continuously scores every shopper on your store. When a shopper's intent score crosses the threshold you set, Llea fires a **High Intent Customer** event into Shopify Flow. Flow routes that event to Klaviyo via Klaviyo's native Shopify Flow connector, carrying a full payload — recommended product, personalised discount code, and optimal send time. Klaviyo receives the event, triggers the matching flow, and sends the email on your behalf.
+
+<CardGroup cols={3}>
+  <Card title="Llea owns" icon="brain-circuit">
+    Who to reach, when to reach them, which product, and what personalised content — including single-use discount codes.
+  </Card>
+  <Card title="Shopify Flow owns" icon="arrow-right-arrow-left">
+    Routing the intent event from Llea to Klaviyo the moment the threshold is crossed.
+  </Card>
+  <Card title="Klaviyo owns" icon="envelope">
+    Deliverability, template rendering, send scheduling, unsubscribe handling, and revenue reporting.
+  </Card>
+</CardGroup>
+
+## Connect Llea to Klaviyo
+
+<Steps>
+  <Step title="Confirm the Klaviyo Shopify Flow connector is active">
+    In Klaviyo, go to **Integrations → Shopify Flow** and verify the connector is enabled for your store. If it is not listed, install it from the Shopify App Store — no API keys are required; Shopify handles the OAuth handshake between the two apps.
+  </Step>
+  <Step title="Set your intent threshold in Llea">
+    In the Llea dashboard, open **Settings → Intent Threshold**. Enter the minimum score at which you want Klaviyo to be triggered — 85 is a strong starting point for email, but you can tune it up or down based on your send-volume goals.
+  </Step>
+  <Step title="Create a Shopify Flow automation on the Llea event">
+    In Shopify Flow, click **Create automation** and choose **Llea — High Intent Customer** as the trigger. Add a **Send Klaviyo event** action and give the custom event a name you will recognise, such as `llea_high_intent`.
+  </Step>
+  <Step title="Create or update a Klaviyo flow for the custom event">
+    In Klaviyo, go to **Flows → Create flow → Build your own**. Set the trigger to **Metric** and select the `llea_high_intent` event you just created. Wire up your email action as you would for any metric-triggered flow.
+  </Step>
+  <Step title="Configure the email template to use Llea's event properties">
+    Llea injects the recommended product, the customer's first name, the optimal send time, and a personalised discount code directly into the event payload. Use Klaviyo's standard event-property variables (for example, `{{ event.recommended_product_title }}`) to pull these into your template. See the full payload reference below.
+  </Step>
+</Steps>
+
+## Gate your existing flows for the highest week-one ROI
+
+The single biggest return you can get in the first week is not building a new flow — it is making your existing abandoned-cart flow smarter. By default, an abandoned-cart flow fires on every cart abandonment regardless of purchase intent. Many of those abandons were never going to convert; sending to them wastes budget and trains shoppers to ignore you.
+
+To gate the flow on Llea intent, open your abandoned-cart flow in Klaviyo and add a **Flow filter** at the top: **Has metric — `llea_high_intent` — at least once in the last 7 days**. Shoppers who have not crossed your intent threshold are held back automatically. Everything else — your email copy, timing, discount logic — stays exactly as it is.
+
+<Info>
+  Gating an abandoned-cart flow on the Llea high-intent segment lifts attributed revenue per send by **2–4×** for most stores, because you are sending the same email to a much more qualified audience.
+</Info>
+
+Apply the same filter to browse-abandonment and back-in-stock flows whenever you want to restrict them to high-intent shoppers only.
+
+## Event properties Llea sends to Klaviyo
+
+Every `llea_high_intent` event carries the following JSON payload. Reference any property in your Klaviyo template using `{{ event.property_name }}`.
+
+```json
+{
+  "intent_score": 88,
+  "recommended_product_id": "8834512234",
+  "recommended_product_title": "Linen Shirt · Sand",
+  "customer_segment": "researcher",
+  "recommended_send_time": "2025-06-15T08:00:00Z",
+  "personalised_discount_code": "DARRYL-10"
+}
+```
+
+| Property | Description |
+|---|---|
+| `intent_score` | Shopper's current intent score (0–100) at the moment the event fired. |
+| `recommended_product_id` | Shopify product ID of the item Llea recommends for this shopper. |
+| `recommended_product_title` | Human-readable product name, ready to drop into subject lines or body copy. |
+| `customer_segment` | Llea behavioural segment — e.g. `researcher`, `ready_to_buy`, `lapsed`. |
+| `recommended_send_time` | ISO 8601 UTC timestamp for the optimal time to send to this individual. |
+| `personalised_discount_code` | A single-use, named, time-bound discount code pre-generated for this shopper. |
+
+## Using personalised discount codes
+
+Llea pre-generates a unique discount code for every high-intent shopper before the event fires. Codes follow the pattern `FIRSTNAME-10` (for example, `DARRYL-10`), are single-use, are tied to the individual customer record, and expire automatically after the window you configure in Llea.
+
+To add the code to your Klaviyo template, place the following variable anywhere in the email body or subject line:
+
+```
+{{ event.personalised_discount_code }}
+```
+
+Because each code is named and non-transferable, shoppers cannot share it. Because it is single-use, you do not pay the discount twice if a shopper forwards the email.
+
+<Warning>
+  Do not combine a Llea personalised code with a Klaviyo-generated unique coupon in the same email. Use one or the other to avoid conflicts at checkout.
+</Warning>
+
+## Avoid over-messaging high-intent shoppers
+
+<Tip>
+  Add a **48-hour send cooldown** to any Klaviyo flow triggered by `llea_high_intent`. In Klaviyo, set a flow filter: **Has been in this flow — zero times — in the last 2 days**. This prevents a shopper whose intent score stays elevated from receiving the same email every day.
+</Tip>
+
+## What stays the same
+
+<Note>
+  Llea does **not** replace Klaviyo. You keep your existing Klaviyo account, lists, templates, flows, and reports. Llea adds an intent layer on top — the only things that change are which shoppers trigger your flows and how personalised the content inside those flows can be.
+</Note>

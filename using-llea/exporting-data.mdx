@@ -1,0 +1,79 @@
+---
+title: "Export Llea Segments to Klaviyo, WhatsApp, and More"
+sidebarTitle: "Exporting Data"
+description: "Export any Llea segment to Klaviyo, WhatsApp, Shopify customer tags, CSV, Meta, or Google Ads in one click — no SQL or technical setup required."
+---
+
+Every segment you build in Llea is ready to export in one click. You can push it to Klaviyo as a live-synced list, to your WhatsApp provider as a broadcast contact list, to Shopify as a customer tag, or download it as a CSV to upload anywhere else. All of this happens from the Segments dashboard without writing a single query or asking an analyst for help.
+
+## Export Destinations
+
+| Destination | Format | Use Case |
+|---|---|---|
+| **Klaviyo** | Live list sync | Power abandoned-cart, browse-abandonment, and win-back Flows with intent-qualified audiences that stay up to date automatically |
+| **WhatsApp broadcast** | Contact list | Send bulk WhatsApp campaigns through your existing WhatsApp provider using Llea's pre-shaped audience |
+| **Shopify customer tag** | Tag applied to matching customers | Use intent-based tags in Shopify discounts, Shopify Flow automations, and Shopify's own customer segmentation |
+| **CSV download** | CSV with email / phone / name / segment | Upload to any external tool — Meta Ads Manager, Google Ads, your CRM, or any platform Llea doesn't integrate with natively |
+| **Meta / Google Ads** | Hashed CSV | Create custom audiences for retargeting and lookalike campaigns directly in Meta Ads Manager or Google Ads |
+
+## Export a Segment
+
+<Steps>
+  <Step title="Build your segment">
+    In the Llea dashboard, go to **Segments** and use the filter panel to define your audience. Stack filters by product interest, geography, customer recency, order history, and acquisition channel until the segment matches the shoppers you want to reach.
+  </Step>
+  <Step title="Click Export">
+    Click the **Export** button in the top-right corner of the Segments view. A destination picker panel slides open.
+  </Step>
+  <Step title="Select your destination">
+    Choose from the available destinations: **Klaviyo**, **WhatsApp broadcast**, **Shopify customer tag**, **CSV download**, **Meta Ads**, or **Google Ads**.
+  </Step>
+  <Step title="Authorise the connection (live sync only)">
+    For **Klaviyo**, you only need to authorise the connection once. If you haven't connected Klaviyo yet, Llea walks you through the API key setup. After that first authorisation, the list updates automatically on the refresh schedule — no repeat steps required.
+
+    For **Shopify customer tag**, confirm the tag name you want applied. Llea writes the tag to every matching customer in your Shopify store.
+  </Step>
+  <Step title="Download or confirm">
+    For **CSV**, **Meta Ads**, and **Google Ads** exports, Llea generates the file and your download starts automatically. Upload the file to your target platform using that platform's standard audience import flow.
+  </Step>
+</Steps>
+
+## Data Included in Exports
+
+Every export contains the following fields where available:
+
+<Accordion title="Customer identity fields">
+  - **Email address** — always included
+  - **First name** and **last name**
+  - **Phone number** — included if captured at checkout or via Klaviyo opt-in
+  - **Shopify customer ID** — useful for cross-referencing with Shopify Admin or your CRM
+</Accordion>
+
+<Accordion title="Llea intelligence fields">
+  - **Intent score** — the customer's current score at time of export
+  - **Behavioural segment** — the segment label the customer matched (e.g. "High Intent — New Visitor", "Lapsed Buyer — Returning")
+  - **Top interested product** — the product or collection with the highest attributed intent for this customer
+</Accordion>
+
+<Info>
+  For Meta and Google Ads exports, Llea hashes email addresses and phone numbers using SHA-256 before the file is generated. You receive the hashed file — Llea never transmits raw PII to ad platforms on your behalf.
+</Info>
+
+## Scheduled Export Refresh
+
+| Export Type | Default Refresh Cadence |
+|---|---|
+| Klaviyo live sync | Weekly (every Monday, early morning) |
+| Meta / Google Ads audience export | Weekly |
+| Shopify customer tag | Applied immediately on export; re-sync weekly |
+| CSV / WhatsApp | On-demand only — re-export when you need a fresh file |
+
+If a weekly cadence doesn't suit your campaign schedule, contact support to adjust the refresh frequency for your workspace.
+
+<Note>
+  Llea never sends messages to shoppers directly. Every export hands your audience off to the tool you already use — Klaviyo, your WhatsApp provider, Shopify Flow, or your ad platform. You stay in full control of what is sent, when, and through which account.
+</Note>
+
+<Tip>
+  The most effective pattern most teams adopt: build a **"High Intent — Ready to Buy"** segment in Llea, sync it to Klaviyo, and attach your existing abandoned-cart or browse-abandonment Flow. The Flow you've already set up fires only on shoppers who actually have intent — same effort, significantly better conversion rate.
+</Tip>

@@ -1,0 +1,146 @@
+---
+title: "Smart Stock Clearance: Clear Inventory at Higher Margins"
+sidebarTitle: "Stock Clearance"
+description: "Clear stuck inventory in 90 days at a 15% markdown instead of 35% by targeting only the customers already predisposed to buy each SKU."
+---
+
+Every Shopify store has SKUs that won't move on their own. The default response — a blanket discount sent to the entire list — ships the units but destroys the margin and teaches your best customers to wait for the next sale. Llea takes a different approach: it identifies the specific customers in your existing base who are already predisposed to buy each stuck SKU, ranks them by behavioural segment, and sends a multi-stage AI-composed sequence tailored to how each segment actually makes purchase decisions.
+
+## The Problem with Flat Markdowns
+
+A sitewide 35% markdown treats every shopper as equally likely to buy — and equally price-sensitive. The reality is that for any given stuck SKU, a few hundred customers in your existing base are a natural fit. Sending a deep discount to everyone else leaves margin on the table and conditions your loyal customers to hold out for the next clearance event.
+
+<Warning>
+  Running repeat flat-markdown campaigns trains your best customers to delay purchases and wait for sales. Over time this erodes your full-price conversion rate and compresses overall margin — even on products that are not in clearance.
+</Warning>
+
+Llea's clearance engine targets only the customers who match the SKU, uses the smallest discount necessary to convert each segment, and protects full-price behaviour everywhere else in your store.
+
+## The 7 Matching Signals
+
+Llea finds the right audience for each stuck SKU by running seven signals across three independent streams. A customer enters the matched audience as soon as **any one signal fires** — the streams combine to produce the broadest qualified pool possible while maintaining relevance.
+
+| Stream | Signal | Description |
+|---|---|---|
+| **Past Behaviour** | Co-Purchase Affinity | Customers who previously bought items frequently paired with this SKU. The stuck product is a natural next purchase for them. |
+| **Past Behaviour** | Discount Responder | Customers with a history of converting on promotional offers. The right audience when a targeted discount unlocks the sale. |
+| **Profile & Fit** | Variant Match | Shoppers who own a related size, colour, or earlier model — one step away from a refill, upgrade, or sibling variant. |
+| **Profile & Fit** | Geographic Match | Customers in regions where this product typically performs well, factoring in climate, sizing patterns, and local preference. |
+| **Profile & Fit** | Brand & Category | Customers loyal to this brand or its parent category. They already trust the line, so a new SKU is an easy recommendation. |
+| **Predicted Intent** | Predicted Purchase | Customers whose store-specific intent model predicts a purchase within the next 14-day window. |
+| **Predicted Intent** | High Intent Score | Customers whose live intent score is above your configured threshold — the smallest, sharpest cohort in the matched audience. |
+
+<Info>
+  The three streams are independent and complementary. Past Behaviour typically contributes the largest cohort (hundreds of customers). Predicted Intent contributes the smallest but highest-converting cohort. Together they produce a single ranked audience without duplication.
+</Info>
+
+## The 4-Step Engine
+
+Llea's clearance process runs continuously from detection through to delivery. You do not need to manually flag SKUs or set up campaigns — the engine monitors your inventory and fires as soon as a stranded product meets the detection criteria.
+
+<Steps>
+  <Step title="Detect Stranded SKUs">
+    Llea monitors your inventory continuously, crossing stock levels against age and sales velocity. When a SKU crosses the stranded threshold — too many units, too slow a sell-through, too long on shelf — it enters the clearance queue automatically. Drill down to variant level: L and M of the same shirt may be stranded while XL is sold out (a restock signal, not a clearance one).
+  </Step>
+  <Step title="Match Buyers Across 7 Signals">
+    For each stranded SKU, Llea runs all seven signals across your customer base simultaneously. Every matched customer is tagged with the signal (or signals) that qualified them and ranked by their behavioural segment. You see exactly who is in the audience and why before a single message is sent.
+  </Step>
+  <Step title="AI Composer Drafts the Nurture Sequence">
+    The AI Composer generates a three-stage nurture sequence — Discovery, Reminder, and Last Chance — in your brand voice. Each stage is rendered across Email, SMS, and WhatsApp, producing nine total message variants. Copy tone and length are tuned per stage; content adapts per behavioural segment.
+  </Step>
+  <Step title="Deliver on the Right Channel, Timed per Shopper">
+    Llea hands the sequence to your existing sending tools via Shopify Flow, routing each customer to their preferred channel at the optimal time. Every step is auditable — click any matched customer at any point to see their qualifying signals and the exact composed message they received.
+  </Step>
+</Steps>
+
+## The 3-Stage Nurture Sequence
+
+The AI Composer generates a single coherent sequence for each matched shopper across three stages. Tone, length, and urgency escalate as the clearance window closes.
+
+<Accordion title="Day 0 — Discovery (~90 words)">
+  **Tone:** Warm and welcoming
+
+  The opening message introduces the product as a natural fit for this customer, referencing why it was matched to them. It does not lead with urgency or scarcity — the goal is to surface the item as a discovery, not a clearance push. Email renders at roughly 90 words in brand voice; SMS uses a short hook plus link; WhatsApp uses a rich card with a single CTA.
+
+  _Example angle:_ "Hi Olivia, based on your past purchases we think you'd love the Linen Shirt in Sand — here's why it's a great match for your wardrobe."
+</Accordion>
+
+<Accordion title="Day 5 — Reminder (~60 words)">
+  **Tone:** Direct, with light scarcity
+
+  The reminder re-surfaces the product for customers who opened but did not convert. It introduces a stock-availability signal — how many units remain at their size — to create authentic, non-manufactured urgency. Copy tightens to roughly 60 words. SMS leads with the stock-left figure; WhatsApp uses a stock-counter card.
+
+  _Example angle:_ "Still thinking about the Linen Shirt in Sand? Only 12 left in your size — we wanted to make sure you didn't miss out."
+</Accordion>
+
+<Accordion title="Day 12 — Last Chance (~40 words)">
+  **Tone:** Urgent, final hours
+
+  The closing message is short and direct: the window is closing, this is the final offer. Copy targets 40 words or fewer. Email uses a final-offer hero layout; SMS is a last-call link; WhatsApp includes a countdown sticker with a CTA. After Day 12, the customer exits the sequence regardless of conversion outcome.
+
+  _Example angle:_ "Final hours, Olivia. The Linen Shirt in Sand clears tonight — use OLIVIA-15 before midnight."
+</Accordion>
+
+<Note>
+  The same sequence produces nine total variants: three stages × three channels (Email, SMS, WhatsApp). Llea selects the appropriate channel variant for each customer based on their channel preference. Brand voice, accent colour, and tone stay consistent across all nine cells.
+</Note>
+
+## Segment-Aware Copy
+
+Every customer in the matched audience carries a behavioural segment tag. The AI Composer adapts the angle and emphasis of each message to match how that segment actually makes purchase decisions. The same product, sent to three different segments, generates three meaningfully different messages.
+
+<CardGroup cols={3}>
+  <Card title="🤔 Hesitant Explorer" icon="magnifying-glass">
+    **Buying pattern:** Browses repeatedly, abandons cart, low discount usage.
+
+    **What they need:** Reassurance — not urgency. Include verified reviews, fit notes for their size, and a clear return policy statement. Remove friction, don't pile on pressure.
+
+    **Copy angle:** "Here's what other customers in your size said, and here's how easy returns are if it's not quite right."
+  </Card>
+  <Card title="⚡ Impulse Buyer" icon="bolt">
+    **Buying pattern:** Short consideration cycles, high discount sensitivity, quick decisions.
+
+    **What they need:** Urgency and scarcity. Lead with limited stock, a 48-hour countdown, and a named discount code. No lengthy product descriptions — get to the offer fast.
+
+    **Copy angle:** "Only 8 left in your size. Your exclusive code expires in 48 hours."
+  </Card>
+  <Card title="🔍 Researcher" icon="file-lines">
+    **Buying pattern:** Long sessions on product pages, reads specs, compares variants.
+
+    **What they need:** Detail and credibility. Include materials, sizing breakdown, technical specifications, and brand provenance. They will not buy on scarcity alone — earn the decision.
+
+    **Copy angle:** "The Linen Shirt is 100% Belgian linen, preshrunk, and runs true to size. Here's the full spec."
+  </Card>
+</CardGroup>
+
+## P&L Impact
+
+Three numbers your finance team will recognise, drawn from actual clearance cycles run by stores in the Llea cohort.
+
+| Metric | Industry Baseline | With Llea | Improvement |
+|---|---|---|---|
+| Inventory cleared in 90 days | Variable / unpredictable | 60% of stranded stock | Predictable capital recovery |
+| Markdown depth | 35% average | ~15% average | **2× margin saved** |
+| Sell-through velocity | Baseline rate | ~3× baseline | Stock frees shelf space faster |
+
+The margin difference compounds. Clearing 1,000 units at a 15% discount instead of 35% saves 20 margin points per unit sold — on a $50 product, that is $10 per unit back in your pocket, multiplied across the entire matched audience.
+
+## Auditability
+
+Llea does not operate as a black box. Every decision in the clearance engine is inspectable.
+
+<Tip>
+  Click any matched customer in the clearance audience view to see the exact signals that qualified them — which stream fired, which signal triggered it, and what data points supported that signal. Click any composed message to see the tone parameters, the brand variables applied, and which variant of the nurture sequence was selected for that channel.
+</Tip>
+
+This means your team can review and approve an audience before any messages are sent. If a particular customer looks like a poor fit despite matching a signal, you can remove them manually. The engine gives you a strong starting point; you keep final control.
+
+<Accordion title="What counts as a 'stranded' SKU?">
+  Llea flags a SKU as stranded when three conditions converge: current stock is above a minimum unit threshold, sell-through velocity has dropped below a store-specific baseline, and the SKU has been on shelf beyond a configurable age window (default: 60 days). All three parameters are adjustable in **Settings → Stock Clearance**.
+
+  Note that a zero-stock variant (like a sold-out XL) is treated as a restock signal, not a clearance one, and will not enter the clearance queue.
+</Accordion>
+
+<Accordion title="Can I run clearance on a specific variant without affecting other sizes?">
+  Yes. Llea operates at variant level, not product level. You can trigger clearance on the L and M sizes of a linen shirt while leaving XL (sold out) and S (selling normally) untouched. Each variant gets its own matched audience, its own nurture sequence, and its own P&L tracking within the clearance dashboard.
+</Accordion>

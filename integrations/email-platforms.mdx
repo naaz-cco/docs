@@ -1,0 +1,103 @@
+---
+title: "Email Platform Integrations: Mailchimp, Omnisend & More"
+sidebarTitle: "Email Platforms"
+description: "Connect Llea to Mailchimp, Omnisend, ActiveCampaign, Brevo, Drip, and other email tools via Shopify Flow to send intent-gated campaigns."
+---
+
+Llea works with every major email platform your Shopify store might already be running. The connection pattern is the same in every case: Llea fires a **High Intent Customer** event into Shopify Flow when a shopper crosses your intent threshold, and Flow forwards that event to your email platform — either through the platform's native Shopify Flow connector or via an HTTP webhook. You do not need to migrate away from the tool your team already knows; Llea slots in as the intent layer on top of your existing setup.
+
+## Supported platforms
+
+| Platform | Connection method | Native Flow connector? |
+|---|---|---|
+| Klaviyo | Shopify Flow native connector | ✅ Yes |
+| Mailchimp | Shopify Flow native connector | ✅ Yes |
+| Omnisend | Shopify Flow native connector | ✅ Yes |
+| ActiveCampaign | Shopify Flow native connector | ✅ Yes |
+| Brevo (Sendinblue) | Shopify Flow native connector | ✅ Yes |
+| Drip | Shopify Flow native connector | ✅ Yes |
+| Privy | Shopify Flow native connector | ✅ Yes |
+| Resend | HTTP webhook via Shopify Flow | ⬜ Webhook |
+| Other platforms | HTTP webhook via Shopify Flow | ⬜ Webhook |
+
+<Note>
+  All email sends go through your platform — Llea never contacts shoppers directly. Llea supplies the trigger and the personalisation payload; your email platform handles deliverability, opt-out compliance, and reporting.
+</Note>
+
+## Generic connection steps
+
+These steps apply to any platform with a native Shopify Flow connector. If your platform is not on the native-connector list, skip to the [HTTP webhook option](#http-webhook-for-other-platforms) below.
+
+<Steps>
+  <Step title="Confirm your email platform's Shopify Flow connector is active">
+    Log into your email platform and navigate to its integrations or connected apps page. Find the Shopify Flow connector and make sure it is enabled for your store. If you do not see it, install it from the Shopify App Store — most platforms list their Shopify Flow connector there.
+  </Step>
+  <Step title="Set your intent threshold in Llea">
+    In the Llea dashboard, open **Settings → Intent Threshold** and enter the minimum score at which you want an email to be triggered. A score of 70 is the recommended floor for email — shoppers below this band are better served by suppression or ambient retargeting rather than a direct send.
+  </Step>
+  <Step title="Create a Shopify Flow automation on the Llea event">
+    In Shopify Flow, click **Create automation** and select **Llea — High Intent Customer** as the trigger. This event fires every time a shopper on your store crosses the threshold you set in the previous step.
+  </Step>
+  <Step title="Add your platform's send or list action">
+    Inside the same Flow automation, add the action provided by your email platform — typically labelled **Send event**, **Add to list**, or **Trigger campaign**. Map the Llea event properties (product, discount code, send time) to the corresponding fields your platform expects.
+  </Step>
+  <Step title="Configure your campaign template to use the event properties">
+    In your email platform, open the template or campaign that will fire on this trigger. Use your platform's variable syntax to pull in the product name, discount code, and recommended send time from the Llea payload. The exact variable names your platform uses will differ, but the underlying data is the same across all integrations — see the payload reference below.
+  </Step>
+</Steps>
+
+## HTTP webhook for other platforms
+
+If your email platform does not have a native Shopify Flow connector, use Shopify Flow's built-in **Send HTTP Request** action to push the Llea event payload directly to your platform's API.
+
+In your Flow automation, replace the platform-specific action with **Send HTTP Request** and configure the request body as follows:
+
+```json
+{
+  "email": "{{ customer.email }}",
+  "intent_score": "{{ trigger.intent_score }}",
+  "product": "{{ trigger.recommended_product_title }}",
+  "discount_code": "{{ trigger.personalised_discount_code }}"
+}
+```
+
+Set the **URL** to your platform's inbound webhook or API endpoint, add any authentication headers your platform requires (for example, `Authorization: Bearer YOUR_API_KEY`), and set the **Content-Type** header to `application/json`.
+
+<Accordion title="Full Llea event payload reference">
+  The complete set of properties Llea passes through Shopify Flow is listed below. Use whichever subset your platform and template need.
+
+  | Property | Description |
+  |---|---|
+  | `intent_score` | Shopper's current intent score (0–100). |
+  | `recommended_product_id` | Shopify product ID of the item Llea recommends. |
+  | `recommended_product_title` | Human-readable product name for use in subject lines or body copy. |
+  | `customer_segment` | Llea behavioural segment — e.g. `researcher`, `ready_to_buy`, `lapsed`. |
+  | `recommended_send_time` | ISO 8601 UTC timestamp for the optimal individual send time. |
+  | `personalised_discount_code` | Single-use, named, time-bound discount code for this shopper. |
+</Accordion>
+
+## Channel routing by intent score
+
+Llea recommends routing shoppers to different channels depending on their intent score. Use a **Condition** step in Shopify Flow to enforce this split automatically.
+
+<Tabs>
+  <Tab title="70–89 → Email">
+    Shoppers in this band show genuine interest but have not yet reached peak urgency. A personalised email referencing the specific product they engaged with — without a discount — converts well here. Route the Llea event to your email platform when `intent_score` is between 70 and 89.
+  </Tab>
+  <Tab title="90–100 → WhatsApp / SMS">
+    Shoppers in this band are at the highest point of intent and are likely to convert within 24–48 hours. The higher attention cost of WhatsApp or SMS is justified here. Add a Flow condition that checks `intent_score >= 90` and routes those events to your WhatsApp or SMS connector instead of your email platform.
+  </Tab>
+  <Tab title="Below 70 → Suppress">
+    Shoppers scoring below 70 are unlikely to convert from a direct outreach today. Sending to this band increases unsubscribes and wastes your sending budget. Let the Flow automation end without an action for scores below your email threshold — Llea will re-evaluate these shoppers as their behaviour changes.
+  </Tab>
+</Tabs>
+
+To implement the split in Shopify Flow, add a **Condition** step immediately after the Llea trigger:
+
+- **If** `trigger.intent_score` is **greater than or equal to** `90` → route to WhatsApp / SMS action
+- **Else if** `trigger.intent_score` is **greater than or equal to** `70` → route to email action
+- **Else** → end the automation (suppress)
+
+<Tip>
+  For Klaviyo specifically — including how to gate your existing abandoned-cart and browse-abandonment flows on the Llea intent event — see the dedicated [Klaviyo integration page](/integrations/klaviyo).
+</Tip>

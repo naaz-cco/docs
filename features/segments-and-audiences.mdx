@@ -1,0 +1,136 @@
+---
+title: "Building Intent-Based Segments and Audiences in Llea"
+sidebarTitle: "Segments"
+description: "Build continuously refreshed intent-based segments in Llea and export them to Klaviyo, WhatsApp, Shopify tags, retargeting platforms, or CSV."
+---
+
+Segments in Llea are not static lists you export once and forget. Every segment is a live query against your customer profiles — it refreshes continuously as intent scores change, new orders arrive, and visitors identify themselves. When a customer's score rises above your threshold, they enter the relevant segment automatically. When it drops, they exit. This means your "ready to buy" list always reflects who is actually ready to buy right now, not who was ready three weeks ago when you last ran a manual export.
+
+## What a Llea Segment Is
+
+A Llea segment is a continuously evaluated filter applied to your full customer and visitor base. It draws on every dimension of the customer profile — intent score, behavioural segment, order history, geography, channel preference, product interest — and resolves to a ranked audience in real time.
+
+<Info>
+  Because segments refresh continuously, you can use them as dynamic suppression lists as well as send audiences. A customer who falls below the intent threshold is automatically removed from your "ready to buy" segment and, if you have connected that segment to a suppression rule, will be excluded from your next blast send without any manual intervention.
+</Info>
+
+<CardGroup cols={3}>
+  <Card title="Live Refresh" icon="arrows-rotate">
+    Segments recalculate continuously as intent scores change, orders arrive, and visitors identify themselves. No scheduled syncs or manual exports needed.
+  </Card>
+  <Card title="Stackable Filters" icon="layer-group">
+    Combine intent score, geography, product interest, behavioural segment, and recency in a single query. Filters narrow the audience with AND logic.
+  </Card>
+  <Card title="Multi-Channel Export" icon="arrow-up-from-bracket">
+    Export any segment to Klaviyo, WhatsApp broadcast lists, Shopify customer tags, retargeting platforms, or CSV — in one step.
+  </Card>
+</CardGroup>
+
+## Available Filters
+
+Stack any combination of the following filters to define your segment. Filters combine with AND logic — every filter you add narrows the audience to customers who satisfy all the active conditions simultaneously.
+
+| Filter Type | Available Options |
+|---|---|
+| **Intent Score** | Above / below a threshold (e.g. ≥85); top decile; bottom 30% |
+| **Behavioural Segment** | Loyalist, Impulse Buyer, Researcher, Hesitant Explorer (select one or multiple) |
+| **Product / Collection Interest** | Customers currently browsing or with high intent on a specific product, collection, or category |
+| **Geography** | Country, region, or city of the customer's shipping address or location signals |
+| **Customer Recency** | First-time visitors, returning visitors, lapsed customers (last order > 90/180/365 days ago) |
+| **Order History** | Number of orders placed; total LTV; AOV above / below a value; purchased specific SKU |
+| **Channel of First Acquisition** | Organic search, paid social, email, referral, direct |
+| **Best Contact Channel** | Email, WhatsApp, SMS (useful for routing a segment to the right tool) |
+| **Purchase Prediction Window** | Likely to purchase in the next 7, 30, or 90 days |
+
+<Tip>
+  Filters stack in a single query. For example: "Show me first-time visitors from California who have intent on the Linen collection" combines recency (first-time), geography (California), and product interest (Linen collection) into one live segment — no intermediate exports or manual list merging required.
+</Tip>
+
+## Building a "Ready to Buy" Prediction List
+
+The purchase prediction filter lets you surface customers who are most likely to convert within a defined time window. Use this list to focus your outreach budget on the highest-ROI cohort in your store.
+
+<Steps>
+  <Step title="Open the Segments dashboard">
+    Navigate to **Segments** in the Llea sidebar. Select **New Segment** and give it a descriptive name, for example "Ready to Buy — Next 7 Days".
+  </Step>
+  <Step title="Apply the purchase prediction filter">
+    Under **Purchase Prediction Window**, select your target horizon: **7 days**, **30 days**, or **90 days**. Llea calculates this from each customer's purchase rhythm, current intent score, and trajectory. The list populates immediately.
+  </Step>
+  <Step title="Refine with additional filters (optional)">
+    Layer on product interest, geography, or behavioural segment filters to narrow the list further. For example: Impulse Buyers in the 7-day window who have intent on the Denim collection are a high-value sub-segment for a targeted flash sale.
+  </Step>
+  <Step title="Save and monitor the live segment">
+    Save the segment. Llea refreshes it continuously — customers enter as their predicted purchase date moves inside your window, and exit once they convert or their intent decays. Check the segment size daily to track how your ready-to-buy pool is growing or shrinking.
+  </Step>
+</Steps>
+
+## Suppression: Protecting Your Deliverability
+
+Not every customer on your list should receive every campaign. Sending to low-intent shoppers wastes budget and, over time, degrades your sender reputation and email deliverability.
+
+Use a segment as a **suppression list** to exclude low-intent customers from blast sends automatically.
+
+1. Create a segment with the **Intent Score below 40** filter. This captures the bottom decile — shoppers with no meaningful purchase signal right now.
+2. Connect this segment to your Klaviyo, Omnisend, or Mailchimp suppression list via the export integration. Llea keeps the segment live; your sending tool sees an up-to-date exclusion list before every send.
+3. Optionally, add a **Behavioural Segment** filter (Hesitant Explorer) to also suppress repeat browsers who have never converted — protecting them from over-contact until they show a stronger signal.
+
+<Warning>
+  Do not suppress indefinitely. A customer suppressed today because their score is 25 may hit 90 next week after a few focused browsing sessions. Because Llea segments refresh continuously, they will automatically re-enter your active audiences when their score recovers — as long as you have not manually excluded them with a hard Shopify customer tag.
+</Warning>
+
+## Exporting Audiences
+
+Once you have built and saved a segment, export it to any downstream tool in one step. Llea supports five export formats. Use the tabs below to understand which format fits your use case before you export.
+
+<Tabs>
+  <Tab title="Live Sync Formats">
+    These formats maintain a continuous connection between Llea and your downstream tool. As the segment refreshes, the connected list updates automatically — no re-exporting required.
+
+    | Format | Best For |
+    |---|---|
+    | **Klaviyo Audience Sync** | Email and SMS campaigns triggered from Klaviyo Flows; A/B testing using Llea intent score as a property |
+    | **Shopify Customer Tag** | Shopify Flow automations, loyalty reward triggers, discount eligibility rules |
+  </Tab>
+  <Tab title="Point-in-Time Formats">
+    These formats produce a snapshot of the segment at the moment of export. Re-export regularly to keep lists current during active campaigns.
+
+    | Format | Best For |
+    |---|---|
+    | **WhatsApp Broadcast List** | One-time or scheduled WhatsApp blasts via Postscript, Attentive, or Wati |
+    | **CSV Download** | Manual uploads, agency handoffs, ad-hoc analysis in spreadsheets |
+    | **Retargeting Export** | Facebook Custom Audiences, Google Customer Match, TikTok Custom Audiences |
+  </Tab>
+</Tabs>
+
+<Steps>
+  <Step title="Klaviyo Audience Sync">
+    Select **Export → Klaviyo**. Llea pushes the segment to a Klaviyo list or segment via the Klaviyo API. The sync is bidirectional for profile data — intent scores and segment tags are written as custom properties so you can use them in Klaviyo flow conditions and A/B tests.
+  </Step>
+  <Step title="WhatsApp Broadcast List">
+    Select **Export → WhatsApp Broadcast**. Llea generates an opted-in contact list formatted for your connected WhatsApp Business tool (Postscript, Attentive, or Wati). Only customers with WhatsApp as their best contact channel and a valid opt-in status are included.
+  </Step>
+  <Step title="Shopify Customer Tag">
+    Select **Export → Shopify Tag** and specify the tag name (e.g. `llea-ready-to-buy-7d`). Llea writes the tag to each matching customer record in your Shopify admin. Use Shopify Flow to trigger automations, discounts, or loyalty rewards based on the tag — and benefit from Llea's continuous refresh keeping the tagged list current.
+  </Step>
+  <Step title="CSV Download">
+    Select **Export → CSV** for a one-time download of the current segment. The CSV includes all profile fields: customer name, email, intent score, segment, LTV, AOV, predicted purchase date, and best contact channel. Use this for manual uploads, ad-hoc analysis, or sharing with your paid media agency.
+  </Step>
+  <Step title="Retargeting Export">
+    Select **Export → Retargeting** to download a hashed email list formatted for Facebook Custom Audiences, Google Customer Match, or TikTok Custom Audiences. Concentrate your paid retargeting budget on the customers with the highest intent scores rather than re-targeting your entire pixel pool.
+  </Step>
+</Steps>
+
+<Note>
+  All exports reflect the segment at the moment of export. Klaviyo Audience Sync and Shopify Customer Tag exports stay live — Llea pushes updates as the segment refreshes. CSV and retargeting exports are point-in-time snapshots; re-export them regularly if you are running extended campaigns.
+</Note>
+
+<Accordion title="How often does a live segment refresh?">
+  Intent scores update continuously as new session events arrive from your Shopify storefront. In practice, the segment recalculates within seconds of a customer's engagement changing — for example, when a browsing session pushes their score from 72 to 86 and they cross your intent threshold.
+
+  Downstream live-sync connections (Klaviyo, Shopify tags) propagate on the same cadence; allow up to 5 minutes for the API write to complete. Point-in-time exports (CSV, retargeting) capture the segment at the exact moment you click Export.
+</Accordion>
+
+<Accordion title="Can I use segments in Shopify Flow conditions?">
+  Yes. When you export a segment using the **Shopify Customer Tag** format, Llea writes a tag (e.g. `llea-high-intent-7d`) to every matching customer record in your Shopify admin. You can then use that tag as a condition in any Shopify Flow trigger — for example, apply a loyalty discount automatically when a customer enters the "ready to buy in 7 days" segment, or send a Slack notification to your sales team when a VIP customer crosses the 90 intent threshold.
+</Accordion>

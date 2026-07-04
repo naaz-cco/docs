@@ -1,0 +1,79 @@
+---
+title: "Manage Team Roles and Workspace Permissions in Llea"
+sidebarTitle: "Team Roles"
+description: "Understand Llea's four least-privilege roles — Owner, Marketer, Analyst, and Operator — and learn how to add, change, and remove team members."
+---
+
+Llea uses a least-privilege role model, which means every team member gets exactly the access they need to do their job — and nothing beyond that. A colleague scanning the morning queue doesn't need visibility into your Shopify integration credentials or billing details, and the role system reflects that. Assign roles deliberately when you invite someone and revisit them as responsibilities change.
+
+## Roles and Permissions
+
+| Role | Permissions |
+|---|---|
+| **Owner** | Full access — billing, integrations, user management, all dashboard views, segment building, campaign approvals, alert editing, and all exports |
+| **Marketer** | Build segments, approve and dismiss campaigns, edit and create alerts, export audiences to all destinations |
+| **Analyst** | Read-only access to all dashboards and exports — can view but not build, approve, or modify anything |
+| **Operator** | Approve or dismiss items in Today's queue only — no access to segments, alerts, settings, or exports |
+
+<Note>
+  The **Owner** role is tied to the Shopify store owner by default. You can add additional Owners, but you cannot remove the last Owner from a workspace. If you need to transfer ownership, add the new Owner first, then remove the previous one.
+</Note>
+
+## Add a Team Member
+
+<Steps>
+  <Step title="Open Team Settings">
+    In the Llea dashboard, go to **Settings** → **Team** in the left sidebar.
+  </Step>
+  <Step title="Click Invite">
+    Click the **Invite Team Member** button in the top-right corner of the Team page.
+  </Step>
+  <Step title="Enter the email address">
+    Type the email address of the person you want to invite. The invitation email comes from Llea, so ask your colleague to check their spam folder if they don't see it within a few minutes.
+  </Step>
+  <Step title="Select a role">
+    Choose the appropriate role from the dropdown: **Owner**, **Marketer**, **Analyst**, or **Operator**. If you're unsure, start with **Analyst** — you can always upgrade permissions later.
+  </Step>
+  <Step title="Send the invite">
+    Click **Send Invite**. The invitee receives an email with a link to accept and set up their account. Their status shows as **Pending** on the Team page until they accept.
+  </Step>
+</Steps>
+
+## Change a Team Member's Role
+
+If someone's responsibilities change, update their role directly from the Team page:
+
+1. Go to **Settings** → **Team**.
+2. Click the team member's name to open their profile.
+3. Use the **Role** dropdown to select the new role.
+4. Click **Save**. The change takes effect immediately — no re-invitation required.
+
+## Remove a Team Member
+
+To revoke someone's access to the workspace:
+
+1. Go to **Settings** → **Team**.
+2. Click the team member's name to open their profile.
+3. Click **Remove from workspace** at the bottom of the profile panel.
+4. Confirm the removal in the dialog that appears.
+
+<Warning>
+  Removing a team member immediately revokes their access. Any segments, alerts, or exports they created remain in the workspace and are unaffected. If they were the owner of pending queue approvals, those items return to the unassigned queue.
+</Warning>
+
+## Agency Access
+
+If you work with a marketing agency, add agency team members the same way you add internal colleagues — through **Settings** → **Team** with the appropriate role. Agencies do not need a separate account type.
+
+<Tabs>
+  <Tab title="What agencies can access">
+    Agency team members have the same role-based permissions as internal team members. A strategist from your agency assigned the **Marketer** role can build segments and approve campaigns; a junior team member assigned **Analyst** can view dashboards and pull exports without touching anything live.
+  </Tab>
+  <Tab title="Multi-store (roster) view">
+    Agencies managing more than one Llea-connected store get an **Agency Roster** view — a single dashboard that lists all linked client stores and surfaces top-level intent summaries for each one. Individual store data remains siloed; the roster view shows only summary metrics unless the agency member has been invited into a specific store's workspace.
+  </Tab>
+</Tabs>
+
+<Tip>
+  For agencies, the recommended setup is: one **Owner**-level contact at the agency (for integration and billing coordination with the client), and individual **Marketer** or **Analyst** roles for the day-to-day team members who work in the platform. This keeps sensitive store settings protected while giving working access to everyone who needs it.
+</Tip>

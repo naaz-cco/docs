@@ -1,0 +1,16 @@
+# Source: https://www.llea.ai/blog
+
+- [Getting started·6 min read\\ \\ **What llea.ai actually does, and what it doesn't**\\ \\ A plain-English walkthrough of what llea.ai is, the problem it solves on Shopify, and where it sits next to Klaviyo, GA4, and heatmap tools.](https://www.llea.ai/blog/what-llea-actually-does)
+- [Intent data·8 min read\\ \\ **How llea.ai measures purchase intent (without the buzzwords)**\\ \\ The behaviours we track, how we score them, how we handle anonymous shoppers and multi-device sessions, and why the score is something you can actually audit.](https://www.llea.ai/blog/how-llea-measures-purchase-intent)
+- [Setup·6 min read\\ \\ **Setting up llea.ai on Shopify (and connecting it to your stack)**\\ \\ Install steps, theme compatibility, the platforms we integrate with, and what to expect in the first 24 hours.](https://www.llea.ai/blog/shopify-setup-and-integrations)
+- [Operations·6 min read\\ \\ **Running your store with llea.ai: the daily and weekly workflow**\\ \\ What a marketing manager actually does inside llea.ai each day, how to set up alerts, and how to action insights without becoming a full-time analyst.](https://www.llea.ai/blog/running-your-store-with-llea)
+- [Marketing·8 min read\\ \\ **Personalised marketing without the blast: building campaigns with intent data**\\ \\ How to use llea.ai segments inside Klaviyo, WhatsApp, SMS, and retargeting — and how to wean your store off blanket-discount campaigns.](https://www.llea.ai/blog/personalised-marketing-without-the-blast)
+- [For D2C·7 min read\\ \\ **llea.ai for D2C brands: activating dormant customers and pricing without discounts**\\ \\ How established D2C brands use llea.ai to wake up dormant customers, reduce returns, and stop competing on discounts.](https://www.llea.ai/blog/llea-for-d2c-brands)
+- [For agencies·6 min read\\ \\ **llea.ai for agencies and partners: proving ROI across client stores**\\ \\ Multi-store access, reporting your clients will actually read, and how llea.ai fits alongside Triplewhale and Northbeam.](https://www.llea.ai/blog/llea-for-agencies)
+- [Pricing·6 min read\\ \\ **Pricing, value, and ROI: what llea.ai costs and what it returns**\\ \\ How our pricing scales with your store, when llea.ai is worth it, and how to model expected ROI before you commit.](https://www.llea.ai/blog/pricing-value-and-roi)
+- [Trust·7 min read\\ \\ **Privacy, security, and compliance: how we handle your customer data**\\ \\ GDPR, CCPA, DPDPA, sub-processors, what happens when you uninstall, and why we never train models on your data.](https://www.llea.ai/blog/privacy-security-compliance)
+- [Comparison·7 min read\\ \\ **llea.ai vs the rest of your stack: GA4, Klaviyo, Hotjar, and the others**\\ \\ A clear comparison against the tools merchants most often ask about — what each does well, what each misses, and where llea.ai fits.](https://www.llea.ai/blog/llea-vs-the-rest-of-your-stack)
+
+Want to see how this works on your store's actual traffic?
+
+[Book a 30-minute call](https://calendly.com/riyaz-llea/30min)

@@ -1,0 +1,149 @@
+---
+title: "1:1 Marketing Personalisation for Your Shopify Store"
+sidebarTitle: "Personalisation"
+description: "Send every customer the right product, on the right channel, at the right time — powered by live intent scores and AI-composed outreach."
+---
+
+Most marketing tools blast the same email template to every shopper and call it personalisation. Llea does something fundamentally different: it builds a continuously updated profile for every customer in your store, scores their purchase intent in real time, and composes a unique outreach — product, copy, discount code, channel, and send time — for each individual. The result is marketing that feels like a one-to-one conversation, not a broadcast.
+
+## The Three Personalisation Dimensions
+
+Every outreach Llea sends is optimised across three independent dimensions. Together they determine what a customer receives, where they receive it, and when.
+
+<CardGroup cols={3}>
+  <Card title="Right Product" icon="bullseye">
+    Llea learns each customer's live intent and category affinity. It surfaces the single product they are closest to buying and attaches an intent score (0–100) to the recommendation.
+
+    _Signals used: current browsing, recent sessions, variant interactions, purchase history_
+  </Card>
+  <Card title="Right Channel" icon="signal">
+    Llea learns which channel each individual actually responds to — Email, WhatsApp, or SMS — by analysing engagement history, response latency, and preferred touchpoint patterns.
+
+    _Signals used: open rates, click-through rates, reply latency per channel_
+  </Card>
+  <Card title="Right Time" icon="clock">
+    Llea predicts each customer's next purchase window and the optimal hour to reach out, based on their personal browse cadence, purchase rhythm, and time-of-day affinity.
+
+    _Signals used: session timing, purchase timestamps, intra-day activity patterns_
+  </Card>
+</CardGroup>
+
+## The 4-Step Engine
+
+Llea turns raw shopper behaviour into a delivered, personalised message through four sequential steps. Your existing marketing stack handles delivery — no rip-and-replace required.
+
+<Steps>
+  <Step title="Intent Filter">
+    Llea scores every active visitor in real time. Only customers who reach an intent score of **85 or above** pass through to the next step. This threshold is configurable; it ensures you spend outreach budget only on shoppers with a genuine, immediate likelihood to buy — typically the top 10–15% of your traffic on any given day.
+  </Step>
+  <Step title="AI Composer">
+    For every customer who passes the filter, the AI Composer generates a fully individualised message: a personalised greeting, a single product recommendation, context-aware copy, and a unique discount code. Nothing is pulled from a template library. See [AI Composer layers](#ai-composer-personalisation-layers) below for full detail.
+  </Step>
+  <Step title="Shopify Flow">
+    The composed outreach — along with channel routing instructions and send-time data — is handed to Shopify Flow as a structured payload. Flow acts as the central delivery hub, routing the message to the correct downstream integration.
+  </Step>
+  <Step title="Delivered">
+    Only the channel that matches the customer's preference fires. If they are a WhatsApp responder, only your WhatsApp tool sends. Email, SMS, and WhatsApp connectors sit idle unless their channel is selected. Delivery lands via the tools you already own.
+  </Step>
+</Steps>
+
+## AI Composer Personalisation Layers
+
+The AI Composer applies three layers of personalisation to every outreach it generates. Each layer adds a distinct dimension of relevance that a generic template cannot replicate.
+
+1. **Deep Personalisation** — The composer references the customer's specific purchase history to open the message with genuine recognition. For example: _"Hi Darryl, given your past purchases of the Prestige Teal Linen Pants and the Inserch SS Abstract Wave Shirt, we think you've got excellent taste."_ The product recommendation flows naturally from what they have already bought.
+
+2. **Real-Time Relevance** — Location, current weather, and seasonality are woven into the copy so the message lands at the moment the customer actually needs the product. For example: _"With spring underway in Niagara Falls, these linen pieces would be perfect right now."_ A customer in a different city or season receives a different contextual line.
+
+3. **Exclusive Discounts** — Llea generates a single-use discount code that carries the customer's own name — for example, `DARRYL-10`. The code is time-bound (typically 48 hours), cannot be shared or reused, and creates genuine urgency without training your audience to wait for blanket sales.
+
+<Note>
+  Named, single-use codes protect your margin. Because `DARRYL-10` only works once and only for Darryl, bargain hunters cannot aggregate and redistribute them the way they can with a sitewide `SAVE15` code.
+</Note>
+
+## Channel Routing by Intent Score
+
+Llea routes each customer to the channel and message type that matches their intent level. Higher-intent customers receive direct, action-oriented outreach on high-engagement channels; lower-intent customers are handled more softly or suppressed entirely.
+
+| Intent Score | Channel | Message Type |
+|---|---|---|
+| 90 – 100 | WhatsApp or SMS | Direct purchase prompt with urgency and named discount code |
+| 70 – 89 | Email | Personalised product recommendation with supporting context |
+| 40 – 69 | Soft email + retargeting | Awareness nudge and retargeting audience inclusion |
+| 0 – 39 | Suppressed | No outreach sent; customer excluded from blast lists |
+
+<Warning>
+  Avoid manually overriding channel routing to force high-volume email sends to low-intent bands. Sending to the 0–39 cohort inflates list size but consistently underperforms on opens and clicks, which depresses your sender reputation and can trigger spam-folder placement for the high-intent sends that matter most.
+</Warning>
+
+<Tip>
+  Suppressing low-intent customers (0–39) is not just about saving send costs. Keeping unready shoppers off your lists improves deliverability rates and prevents email fatigue for customers who haven't yet hit their purchase window.
+</Tip>
+
+<Accordion title="How is the intent score threshold of 85 determined?">
+  The default threshold of 85 is calibrated to pass roughly the top 10–15% of your active daily traffic — the cohort where outreach spend returns the highest ROI. On a mature per-store model (4–8 weeks post-install), customers scoring 85+ convert at approximately 4–7× the rate of your average visitor.
+
+  You can adjust the threshold in **Settings → Intent Filter**. Lowering it to 70 increases audience size but reduces average conversion probability. Raising it to 90 tightens the audience to only the highest-confidence purchase signals. Most stores run best between 80 and 90.
+</Accordion>
+
+## Example: A Personalised Outreach in Practice
+
+Here is how Llea composes an outreach for a real customer profile. Robert White is an Impulse Buyer with an 85 intent score who has been browsing CopperRivet Jeans for four days. His preferred purchase window is 12–3 PM EST, and his next purchase is predicted for the following day.
+
+<Tabs>
+  <Tab title="What Llea Knows">
+    | Signal | Value |
+    |---|---|
+    | Behavioural segment | Impulse Buyer |
+    | Current interest | CopperRivet Jeans (browsed 4 days ago) |
+    | Intent score | 85 — High Intent |
+    | Preferred brand | Black Light |
+    | Preferred category | Jeans |
+    | Best send time | 9 AM (day before predicted purchase) |
+    | Next purchase predicted | Tomorrow |
+    | AOV | $175.65 (−21% vs store average) |
+  </Tab>
+  <Tab title="What Gets Sent">
+    **Channel:** Email, sent at 9 AM tomorrow
+
+    **Subject:** Robert, these just dropped — and they won't last
+
+    **Body:** Hi Robert, you've been eyeing the CopperRivet Jeans — and we think they'd pair perfectly with your Black Light pieces. Stock is moving fast on your size. Use your exclusive code **ROBERT-10** at checkout for 10% off. Expires in 48 hours.
+
+    **Why it works:** The copy leans into scarcity and a time-bound offer — the two triggers that move an Impulse Buyer. No grid of six unrelated products. No generic "We miss you" subject line.
+  </Tab>
+</Tabs>
+
+## Business Impact
+
+Llea's intent-first approach produces measurable improvements across three P&L lines that matter to every Shopify brand.
+
+| Metric | Industry Baseline | With Llea | Improvement |
+|---|---|---|---|
+| Outreach spend (example store) | $7,225 / month | $5,058 / month | −30% |
+| Email marketing purchase conversion | ~2.5% | ~3.75% | +50% |
+| Stock clearance markdown depth | 35% | 15% | 2× margin saved |
+
+<Info>
+  Conversion rate improvement is consistent with McKinsey's 2021 finding that personalised journeys outperform blast campaigns by approximately 1.5×. Your exact results will depend on store size, catalogue depth, and channel mix.
+</Info>
+
+## Supported Integrations
+
+Llea routes outreach through the tools you already use. Connect your stack via Shopify Flow and built-in integrations — no new sending infrastructure required.
+
+<CardGroup cols={3}>
+  <Card title="Shopify & Flow" icon="shop">
+    Native Shopify integration. Shopify Flow acts as the delivery hub for all triggered outreach.
+  </Card>
+  <Card title="Email" icon="envelope">
+    Klaviyo, Mailchimp, Omnisend, Privy, Drip, ActiveCampaign
+  </Card>
+  <Card title="SMS & WhatsApp" icon="message">
+    Postscript, Attentive, PushOwl, Yotpo
+  </Card>
+</CardGroup>
+
+<Note>
+  Don't see your tool listed? Llea exposes a flexible API that connects to any platform supporting Shopify Flow webhooks. Contact support to discuss your stack.
+</Note>

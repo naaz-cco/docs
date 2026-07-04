@@ -1,72 +1,91 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mintlify Starter Kit",
-  "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+  "name": "Llea",
+  "theme": "luma",
+  "logo": {
+    "light": "https://media.brand.dev/ce757d00-7ac4-42de-8c29-dc292da8252a.svg",
+    "dark": "https://media.brand.dev/ce757d00-7ac4-42de-8c29-dc292da8252a.svg"
   },
   "favicon": "/favicon.svg",
-  "navigation": {
-    "pages": [
-      {
-        "group": "Getting Started",
-        "pages": [
-          "index",
-          "quickstart"
-        ]
-      }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+  "colors": {
+    "primary": "#ddf32a",
+    "light": "#7b871c",
+    "dark": "#080804"
   },
-  "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+  "fonts": {
+    "heading": {
+      "family": "Poppins"
+    },
+    "body": {
+      "family": "Poppins"
+    }
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.mintlify.com"
+      "label": "Start Free Trial",
+      "href": "https://apps.shopify.com/llea"
     }
   },
-  "contextual": {
-    "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "how-intent-works"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/overview",
+              "integrations/shopify-flow",
+              "integrations/klaviyo",
+              "integrations/whatsapp",
+              "integrations/sms",
+              "integrations/email-platforms",
+              "integrations/meta-google-ads",
+              "integrations/headless-custom"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "features/marketing-personalisation",
+              "features/stock-clearance",
+              "features/customer-profiles",
+              "features/segments-and-audiences"
+            ]
+          },
+          {
+            "group": "Using Llea",
+            "pages": [
+              "using-llea/daily-workflow",
+              "using-llea/alerts",
+              "using-llea/team-roles",
+              "using-llea/exporting-data"
+            ]
+          },
+          {
+            "group": "Account & Billing",
+            "pages": [
+              "account/pricing",
+              "account/trial-and-billing",
+              "account/privacy-and-compliance"
+            ]
+          }
+        ]
+      }
     ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "website": "https://www.llea.ai"
     }
   }
 }

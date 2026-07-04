@@ -1,0 +1,105 @@
+---
+title: "Shopify Flow: Routing Llea Intent Events"
+sidebarTitle: "Shopify Flow"
+description: "Use Shopify Flow as the central routing hub that receives Llea intent triggers and delivers them to Klaviyo, WhatsApp, SMS, and every other channel."
+---
+
+Shopify Flow is the spine of every Llea integration. Rather than building a direct connector to each marketing platform, Llea fires a single custom Flow event the moment a shopper's intent score crosses your threshold, and Flow handles the rest — routing that trigger to Klaviyo, a WhatsApp tool, an SMS platform, or any other connector already set up in your store. Your campaign templates, your audience segments, and your suppression lists all stay exactly where they are; Llea simply controls who enters them and when.
+
+## How it works
+
+When a shopper's live intent score reaches or exceeds the threshold you've set in Llea, the following happens automatically:
+
+- Llea fires a custom `High Intent Customer` event into Shopify Flow, including a full payload with the customer's intent score, recommended product, recommended channel, and optimal send time.
+- Flow receives the event and evaluates any conditions you've configured — for example, routing WhatsApp-recommended customers to a Wati action and email-recommended customers to a Klaviyo action.
+- The matching action runs inside your CEP, triggering your existing campaign template for that channel.
+- Nothing in your campaign setup changes. The only difference is that the audience now consists exclusively of shoppers with demonstrated purchase intent.
+
+<Note>
+  MoEngage, CleverTap, and WebEngage do not yet have native Shopify Flow connectors. Use the **Send HTTP Request** action in Flow to forward the Llea event payload to their webhook endpoints today. Native connectors for all three are on the Llea roadmap.
+</Note>
+
+## Set up Llea with Shopify Flow
+
+<Steps>
+  <Step title="Ensure Shopify Flow is installed and active">
+    Open your Shopify admin and navigate to **Apps → Shopify Flow**. Flow is free on all Shopify plans. If it isn't installed, add it from the Shopify App Store — no configuration is needed beyond installation.
+  </Step>
+  <Step title="Set your intent threshold in Llea">
+    In your Llea dashboard, go to **Settings → Intent Threshold**. The default is **85** (on a 0–100 scale). Lower the threshold to cast a wider net; raise it to focus only on your highest-confidence shoppers. Each store has its own independent threshold.
+  </Step>
+  <Step title="Create a new Automation in Shopify Flow">
+    Inside Shopify Flow, click **Create automation** and select **Start from scratch**. When prompted to choose a trigger, search for **Llea** and select the **High Intent Customer** event. This trigger fires every time a shopper's score crosses your configured threshold.
+  </Step>
+  <Step title="Add a channel action">
+    Click the **+** button below the trigger to add an action. Choose your CEP's native connector — for example, **Send Klaviyo event** for Klaviyo, or **Trigger Postscript flow** for SMS. For webhook-based platforms (Wati, MoEngage, and others), choose **Send HTTP Request** and paste your provider's inbound webhook URL. Map the Llea event fields to the fields your platform expects.
+  </Step>
+  <Step title="Test the automation">
+    Use Flow's built-in **Test** mode to fire a sample event and verify that your CEP receives it correctly. Alternatively, browse your store in a separate browser session until a real intent event fires — most stores see their first event within a few minutes of threshold configuration.
+  </Step>
+</Steps>
+
+## Event payload reference
+
+Every time Llea fires the `High Intent Customer` event, Shopify Flow receives the following JSON payload. You can reference any of these fields in Flow conditions and actions.
+
+```json
+{
+  "customer_id": "7892341056",
+  "intent_score": 91,
+  "recommended_product_id": "8834512234",
+  "recommended_product_title": "Linen Shirt · Sand",
+  "recommended_channel": "whatsapp",
+  "recommended_send_time": "2025-06-15T09:00:00Z",
+  "customer_segment": "impulse_buyer",
+  "trigger": "threshold_crossed"
+}
+```
+
+| Field | Type | Description |
+|---|---|---|
+| `customer_id` | string | Shopify customer ID |
+| `intent_score` | integer | Score at the moment the threshold was crossed (0–100) |
+| `recommended_product_id` | string | Shopify product ID most likely to convert this shopper |
+| `recommended_product_title` | string | Human-readable product title for use in message copy |
+| `recommended_channel` | string | Channel Llea predicts will convert best: `email`, `sms`, or `whatsapp` |
+| `recommended_send_time` | string (ISO 8601) | Optimal UTC send time based on this shopper's engagement patterns |
+| `customer_segment` | string | Behavioural archetype, e.g. `impulse_buyer`, `deal_seeker`, `browser` |
+| `trigger` | string | Always `threshold_crossed` for this event type |
+
+## Route by channel using Flow conditions
+
+Use Flow's **Condition** block to branch your automation based on `recommended_channel`, so each shopper reaches the right platform automatically:
+
+<Tabs>
+  <Tab title="WhatsApp branch">
+    Add a **Condition** after the trigger: `recommended_channel is equal to whatsapp`. Connect the **Then** path to your WhatsApp provider's action — **Send HTTP Request** for Wati, AiSensy, Interakt, or Gallabox, using that provider's inbound webhook URL.
+  </Tab>
+  <Tab title="Email branch">
+    Add a **Condition**: `recommended_channel is equal to email`. Connect the **Then** path to your email platform's native Flow connector — **Send Klaviyo event**, **Add to Mailchimp audience**, or the equivalent for Omnisend, ActiveCampaign, or Brevo.
+  </Tab>
+  <Tab title="SMS branch">
+    Add a **Condition**: `recommended_channel is equal to sms`. Connect the **Then** path to your SMS connector — **Trigger Postscript flow** or the Attentive equivalent. Pass `recommended_product_title` and `recommended_send_time` into the message fields.
+  </Tab>
+  <Tab title="Fallback (any channel)">
+    Add a final **Otherwise** path below all channel conditions to catch any edge cases. Route it to your default channel — typically email — so no high-intent event is ever silently dropped.
+  </Tab>
+</Tabs>
+
+## Gate your existing flows on Llea intent
+
+You don't have to build new campaigns from scratch. The fastest way to lift revenue from a campaign you already have — like an abandoned-cart flow — is to add the Llea `High Intent Customer` event as an entry condition.
+
+<Accordion title="How to gate an existing abandoned-cart flow">
+  Open your abandoned-cart automation in Shopify Flow (or in Klaviyo, if it lives there). Add an entry condition that requires the shopper to have fired a Llea `High Intent Customer` event within the last 24 hours before the abandon. Shoppers who abandon without reaching your intent threshold are excluded from the sequence entirely.
+
+  The result: your abandoned-cart messages go to a smaller list, but that list is composed exclusively of shoppers who had genuine purchase intent. Most stores see attributed revenue per send increase **2–4×** after adding this gate — with no changes to copy, timing, or creative.
+</Accordion>
+
+<Accordion title="Using recommended_send_time">
+  Instead of sending immediately when the Flow event fires, add a **Wait** step in Flow and set the resume condition to `current time is equal to recommended_send_time`. Llea calculates the optimal send window per shopper based on historical open and click patterns, so scheduling to that time consistently outperforms fixed send-time rules.
+</Accordion>
+
+<Tip>
+  Set a **48-hour cooldown** in Flow to avoid re-messaging shoppers who didn't respond. Add a **Condition** block before your action that checks whether the customer received a Llea-triggered message within the past 48 hours, and route them to a **Do nothing** action if they did. This prevents intent spikes from generating duplicate outreach during a single browsing session.
+</Tip>

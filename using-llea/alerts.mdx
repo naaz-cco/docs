@@ -1,0 +1,90 @@
+---
+title: "Set Up Alerts to Monitor Intent Without Checking In"
+sidebarTitle: "Alerts"
+description: "Configure Llea alerts to get notified via email, Slack, or webhook when customers cross intent thresholds — without babysitting the dashboard."
+---
+
+Alerts exist so that you get the signal without needing to go looking for it. Instead of checking the dashboard multiple times a day, you define the conditions that matter to your store and let Llea notify you the moment one of them is true. Most teams set two or three high-value alerts and barely need to open the dashboard outside of their Monday planning session.
+
+## Alert Types
+
+Llea can notify you on four categories of event:
+
+<CardGroup cols={2}>
+  <Card title="Intent Threshold Crossed" icon="chart-line-up">
+    A customer's intent score rises above a value you set — for example, score > 85. Use this to catch high-intent shoppers the moment they're ready to buy, rather than discovering them the next morning.
+  </Card>
+  <Card title="High-LTV Customer Returns" icon="arrow-rotate-left">
+    A repeat customer with a high lifetime value visits your store again. These shoppers already have purchase history with you and are statistically more likely to convert — you want to know the moment they're back.
+  </Card>
+  <Card title="Intent Spike on a Product" icon="bolt">
+    Organic interest in a specific product or collection jumps unexpectedly. Early signals like this let you capitalise on demand before competitors or before stock runs low.
+  </Card>
+  <Card title="Segment Shrinking" icon="users-slash">
+    A segment you care about is losing members faster than expected. This is an early churn signal — catching it early gives you time to run a retention campaign before customers fully disengage.
+  </Card>
+</CardGroup>
+
+## Alert Delivery Options
+
+Route each alert to wherever your team actually pays attention:
+
+| Delivery Method | Best For |
+|---|---|
+| **Email** | Individual notifications to a specific team member or shared inbox |
+| **Slack** | Team-wide visibility in a channel — great for high-LTV return and spike alerts |
+| **Webhook** | Connecting Llea to your own systems — CRM, internal tools, or custom automations |
+
+You can set a different delivery method for each alert, so high-priority events go to Slack while lower-priority summaries go to email.
+
+## Create an Alert
+
+<Steps>
+  <Step title="Open Alerts in the dashboard">
+    In the Llea dashboard, navigate to **Alerts** in the left sidebar, then click **New Alert** in the top-right corner.
+  </Step>
+  <Step title="Select the alert type">
+    Choose one of the four alert types: **Intent Threshold Crossed**, **High-LTV Customer Returns**, **Intent Spike on Product/Collection**, or **Segment Shrinking Faster Than Expected**.
+  </Step>
+  <Step title="Set the conditions">
+    Configure the trigger conditions for the alert type you selected:
+    - **Intent Threshold**: enter the score value (e.g. `85`)
+    - **Product/Collection spike**: select the product or collection to watch, and set a sensitivity level
+    - **Segment shrink**: choose the segment and the percentage drop that should trigger the alert
+    - **High-LTV return**: set the minimum LTV value that qualifies a customer as high-value for this alert
+  </Step>
+  <Step title="Choose your delivery method">
+    Select **Email**, **Slack**, or **Webhook**:
+    - **Email** — enter the recipient address
+    - **Slack** — paste your Slack webhook URL (generate one in your Slack workspace under **Apps → Incoming Webhooks**)
+    - **Webhook** — paste any HTTP endpoint URL; Llea will POST a JSON payload on trigger
+  </Step>
+  <Step title="Save and test the alert">
+    Click **Save Alert**. Llea immediately sends a test event to your chosen destination so you can confirm delivery before the alert goes live. Check your inbox, Slack channel, or webhook log, then click **Confirm Test Received** to activate the alert.
+  </Step>
+</Steps>
+
+<Tip>
+  Most teams get the highest value from just two alerts: a **Score &gt; 85** alert routed to Slack so the whole team sees high-intent shoppers in real time, and a **High-LTV Customer Returned** alert routed to the owner or head of CRM. Set those two first and add others only if a genuine gap appears.
+</Tip>
+
+## Webhook Payload Reference
+
+When you choose **Webhook** as the delivery method, Llea sends a POST request with a JSON body. Here is an example payload for an intent threshold alert:
+
+```json
+{
+  "alert_type": "intent_threshold_crossed",
+  "customer_id": "7892341056",
+  "customer_email": "olivia@example.com",
+  "intent_score": 93,
+  "product_title": "Linen Shirt · Sand",
+  "triggered_at": "2025-06-15T09:32:00Z"
+}
+```
+
+Use the `alert_type` field to route different events in your receiving system. The `customer_id` value is the Shopify customer ID, so you can look the record up directly via the Shopify Admin API if your automation needs additional customer data.
+
+<Warning>
+  Webhook endpoints must return a `2xx` HTTP status within 10 seconds or Llea will retry the delivery up to three times with exponential backoff. If all retries fail, you will receive a fallback email notification to the workspace Owner's address.
+</Warning>

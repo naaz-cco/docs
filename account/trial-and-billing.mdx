@@ -1,0 +1,131 @@
+---
+title: "Free Trial and Billing: How Llea Charges You"
+sidebarTitle: "Trial & Billing"
+description: "Llea gives you a 14-day free trial with no card required. After that, all charges flow through Shopify Billing — no separate payment setup needed."
+---
+
+Llea's trial and billing are designed to stay entirely within Shopify, so there's no separate account to manage and no payment details to enter with Llea directly. You approve the trial in your Shopify admin, explore the platform at no cost for 14 days, and Shopify handles any charges that follow — exactly like every other app in your stack.
+
+## Your 14-Day Free Trial
+
+<CardGroup cols={2}>
+  <Card title="No card required" icon="credit-card">
+    Llea never asks for your payment details. All billing flows through Shopify, where your details are already stored.
+  </Card>
+  <Card title="Full feature access" icon="sparkles">
+    Every feature — intent scoring, personalised outreach, stock clearance, and analytics — is available from day one of your trial.
+  </Card>
+  <Card title="Trial event limit" icon="chart-bar">
+    Up to **100,000 events** during the trial period. After you convert to a paid plan, events are unlimited.
+  </Card>
+  <Card title="Trial start date" icon="calendar">
+    Your 14-day trial begins on the day you approve the app in Shopify. The countdown starts from approval, not installation.
+  </Card>
+</CardGroup>
+
+<Steps>
+  <Step title="Install Llea from the Shopify App Store">
+    Find Llea in the [Shopify App Store](https://apps.shopify.com/llea-ai) and click **Add app**.
+  </Step>
+  <Step title="Approve the trial in Shopify Admin">
+    Shopify will show you the billing terms before the trial starts. Review and approve them. No charge is made today.
+  </Step>
+  <Step title="Explore for 14 days at no cost">
+    The model begins training in the background. You'll see intent signals within 24 hours and actionable segments within the first week.
+  </Step>
+  <Step title="Shopify billing begins automatically after day 14">
+    If you haven't cancelled before the trial ends, Shopify begins charging based on your visitor volume and any win fees earned. No action is required from you to continue.
+  </Step>
+</Steps>
+
+## After the Trial
+
+Once your trial ends, billing transitions automatically through Shopify — there's nothing you need to do to keep Llea running.
+
+- **Base fee:** $0.006 per store visitor, billed monthly.
+- **Win fees:** 3% of incremental engagement revenue and 3% of clearance margin saved, billed monthly in arrears.
+- **Events:** unlimited after the trial period ends.
+- **Invoice location:** Shopify Admin → Settings → Billing & Usage → Apps.
+
+<Info>
+Win fees are incremental-only. If Llea doesn't generate a lift in a given month, the win fee for that module is zero. You pay only the base analytics fee.
+</Info>
+
+## Cancelling
+
+You can cancel at any time from your Shopify admin — no notice period, no cancellation fee.
+
+<Steps>
+  <Step title="Go to Shopify Admin → Settings → Billing & Usage → Apps">
+    This is the same place you manage all your Shopify app subscriptions.
+  </Step>
+  <Step title="Find Llea and click Remove app">
+    Shopify will confirm the removal. Billing stops immediately.
+  </Step>
+  <Step title="Data purge begins">
+    Llea receives Shopify's `app/uninstalled` webhook and begins deleting your store's data.
+  </Step>
+  <Step title="Deletion completes within 48 hours">
+    The `shop/redact` webhook from Shopify confirms the final purge of all store-level data from Llea's live database.
+  </Step>
+  <Step title="Encrypted backups rotate within 30 days">
+    Any trace of your data in encrypted backup files is automatically rotated out within 30 days of uninstall.
+  </Step>
+</Steps>
+
+<Warning>
+Cancelling fully deletes your store's data and model. If you reinstall Llea later, the model starts fresh and will need 4–8 weeks to reach steady state again. Consider **pausing** instead if you plan to return.
+</Warning>
+
+## Pausing vs Cancelling
+
+If you're heading into a quiet season, pausing is almost always the better choice.
+
+| | **Pause** | **Cancel** |
+|---|---|---|
+| **Billing** | Stops immediately | Stops immediately |
+| **Model state** | Preserved for 90 days | Deleted within 48 hours |
+| **Shopper data** | Retained | Purged; backups rotate within 30 days |
+| **On return** | Resume instantly, no retraining needed | Fresh install; model retrains from scratch (4–8 weeks to steady state) |
+| **How to do it** | Shopify Admin → Billing & Usage → Apps → Pause | Shopify Admin → Billing & Usage → Apps → Remove app |
+
+<Tip>
+Pause rather than cancel during low seasons. Your trained model persists for 90 days and you won't lose the 4–8 weeks of learning when you reactivate.
+</Tip>
+
+## Enterprise Billing
+
+Enterprise plans replace the per-visitor and win-fee structure with a custom flat rate negotiated for your volume and use case.
+
+<Card title="Contact Sales for Enterprise" icon="building" href="mailto:admin@llea.ai">
+  Email **admin@llea.ai** to discuss custom pricing, a Master Service Agreement (MSA), and a tailored SLA. We reply within one business day.
+</Card>
+
+Enterprise plans include:
+- Custom per-visitor pricing (typically a fraction of pay-per-visitor at high scale)
+- Custom win-fee structure or flat-rate alternative
+- Dedicated success manager
+- Custom MSA and SLA
+- Unlimited events
+
+## Frequently Asked Questions
+
+<Accordion title="Where do I find my Llea invoices?">
+  All Llea charges appear in **Shopify Admin → Settings → Billing & Usage → Apps** alongside your other Shopify app charges. Llea never sends separate invoices or stores your payment details.
+</Accordion>
+
+<Accordion title="Can I switch from Pay As You Go to Enterprise?">
+  Yes. Contact [admin@llea.ai](mailto:admin@llea.ai) to discuss an Enterprise plan. We'll coordinate the transition so there's no gap in service or data continuity.
+</Accordion>
+
+<Accordion title="What happens if I reinstall within 48 hours of cancelling?">
+  If you reinstall within the 48-hour deletion window, Llea can restore your store's data. After 48 hours, deletion is complete and a reinstall starts fresh.
+</Accordion>
+
+<Accordion title="Is there a setup fee?">
+  No. There is no setup fee on any plan. The 14-day trial has no cost at all, and the Pay As You Go plan begins billing only after the trial ends.
+</Accordion>
+
+<Note>
+Llea never stores your payment details. All billing is handled entirely by Shopify.
+</Note>

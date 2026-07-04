@@ -1,0 +1,123 @@
+---
+title: "How Llea Scores Purchase Intent: 0–100 Explained"
+sidebarTitle: "Intent Scoring"
+description: "Learn how Llea turns 100+ behavioural, transactional, contextual, and demographic signals into a real-time 0–100 purchase-intent score for every shopper."
+---
+
+Llea's purchase-intent score is a single number between 0 and 100 that expresses how likely a given visitor is to buy from your store right now. A score of 0 means the visitor shows almost no signs of imminent purchase; a score of 100 means every available signal is pointing toward conversion. The score updates continuously as the visitor browses — it is not a one-time calculation at session start. What makes the score useful is not just the number itself, but what sits underneath it: a per-store machine-learning model trained exclusively on your own purchase history, reading over 100 live signals grouped into four families.
+
+## The Four Signal Families
+
+Llea organises its signals into four families. Each family captures a different dimension of shopper behaviour, and together they give the model a full picture of where a visitor sits in their purchase journey.
+
+| Signal family | What Llea reads |
+|---|---|
+| **Engagement depth** | Time spent on product pages, scroll depth reached, image carousel interactions, variant swatch clicks, image zoom events, wishlist additions |
+| **Funnel progression** | Movement through the purchase funnel: product view → add to cart → checkout started → contact information entered → purchase completed |
+| **Repeat behaviour** | Number of sessions on a specific product or category in the last 7, 14, and 30 days; cross-device stitching where a Shopify customer ID is known |
+| **Recency & velocity** | How recently the shopper last engaged with a product, and whether their engagement is accelerating (returning more frequently) or decaying (returning less often) |
+
+<Info>
+  Across all four families, Llea reads **36 behavioural signals**, **30 transactional signals**, **24 contextual signals**, and **16 demographic signals** — 106 in total. Every signal is weighted by your store's own model, not by a generic industry benchmark.
+</Info>
+
+## How Signals Become a Score
+
+Each Shopify store that installs Llea gets its own machine-learning model. The model is trained on that store's historical purchase data — the customers who bought, what they browsed before they bought, how many sessions it took, and what the funnel looked like. No data is ever pooled across merchants. Your model learns from your buyers, and your buyers only.
+
+When a visitor lands on your store, the pixel begins collecting signals immediately. Those signals are passed to your store's model in real time, and the model outputs a score between 0 and 100. The score reflects the probability that this particular visitor, exhibiting this particular pattern of behaviour, will make a purchase — calibrated against what purchase-intent behaviour has historically looked like at your store.
+
+The intent score threshold that triggers a downstream action (a Klaviyo flow, an SMS, a WhatsApp message) is configurable per store. You decide where the line sits.
+
+## How Many Sessions Before High Intent?
+
+Most visitors reach a high-intent score after **2–4 sessions on a specific product or category within a 7-day window**, combined with at least one mid-funnel signal such as an add-to-cart event, a checkout start, or entering contact information.
+
+A single page view on a product — even a long one — rarely produces a high score on its own. The model is looking for a pattern that, in your store's purchase history, has reliably preceded a transaction. That usually requires a combination of repeated engagement and forward funnel movement.
+
+<Accordion title="What counts as a mid-funnel signal?">
+  Mid-funnel signals are events that indicate the shopper has moved beyond passive browsing and is actively considering a purchase. These include:
+
+  - Adding a product to cart
+  - Starting the checkout flow
+  - Entering their email address or phone number in the checkout
+  - Selecting a variant (size, colour, material) on a product they have viewed multiple times
+  - Adding a product to a wishlist
+
+  A visitor who views a product page repeatedly but never crosses any of these events will score lower than one with fewer page views but a clear funnel progression.
+</Accordion>
+
+## Anonymous Visitors
+
+Llea assigns every visitor — whether they are a logged-in customer or a completely anonymous browser — a pseudonymous visitor ID stored in a first-party cookie and local storage. This ID persists across sessions on the same device and browser, allowing the model to build up a signal history even before the visitor identifies themselves.
+
+When the visitor provides their email address (at checkout, via a pop-up, or through any other capture mechanism on your storefront), Llea stitches the pseudonymous visitor ID to their Shopify customer ID. From that point forward, all historical signal data for that visitor is attributed to the known customer profile.
+
+<Note>
+  Llea does not use browser fingerprinting at any point. The visitor ID is based solely on first-party cookie and local-storage values, which means it is scoped to a single browser and device. Llea also respects Do Not Track (DNT) and Global Privacy Control (GPC) browser signals.
+</Note>
+
+## Multi-Device Shoppers
+
+Before a visitor identifies themselves, Llea cannot stitch together sessions from different devices. A shopper who browses on their phone and then completes checkout on their laptop will appear as two separate anonymous visitors until the moment they provide their email address.
+
+Once identification occurs — at checkout or email capture — Llea links all previously anonymous sessions on the same device to the customer profile. Sessions on other devices that have also been identified (for example, if the shopper logged in on their phone) are merged at the customer-profile level through the shared Shopify customer ID.
+
+The limitation before identification is real and worth acknowledging: if a significant portion of your shoppers research on mobile and convert on desktop without ever logging in, some signal history will be fragmented until checkout. This is a universal constraint of first-party, fingerprint-free tracking, not specific to Llea.
+
+## What the Score Means in Practice
+
+On a mature Llea model — typically after 4–8 weeks of live data collection — the relationship between intent score and conversion rate follows a clear pattern.
+
+<Tabs>
+  <Tab title="Top decile (score 90–100)">
+    Visitors scoring in the top 10% convert at **4–7× your store's average conversion rate**. This is the segment where a well-timed, personalised message (email, WhatsApp, SMS) will have the highest return on spend. These shoppers are close to the purchase decision; they often just need a final nudge or reassurance.
+  </Tab>
+  <Tab title="Middle deciles (score 40–89)">
+    The middle of the score distribution is noisier. Conversion rates are above baseline but not dramatically so. This is the segment most susceptible to over-messaging — sending too frequently to the mid-range can accelerate decay rather than conversion. Use intent velocity (is the score rising or falling?) alongside the absolute score to decide whether to engage.
+  </Tab>
+  <Tab title="Bottom decile (score 0–39)">
+    Low-scoring visitors are unlikely to convert regardless of how compelling your message is. Suppressing this segment from blast campaigns is often the single highest-ROI action you can take after installing Llea — it reduces send costs and protects your domain reputation without meaningfully affecting revenue.
+  </Tab>
+</Tabs>
+
+## Using the Score
+
+Intent scores are most powerful when they feed directly into automated decision-making. Here are four concrete ways to put the score to work.
+
+<CardGroup cols={2}>
+  <Card title="Build a ready-to-buy list" icon="list-check">
+    Maintain a continuously refreshed audience of visitors whose score has crossed your threshold. Use this list as the trigger population for intent-based flows in Klaviyo, Postscript, or your WhatsApp provider.
+  </Card>
+  <Card title="Trigger on threshold crossing" icon="bell">
+    Fire an email, WhatsApp message, or SMS the moment a visitor's score crosses your configured threshold — not on a fixed schedule. Reaching out when intent is peaking outperforms scheduled batch sends.
+  </Card>
+  <Card title="Suppress low-intent shoppers" icon="ban">
+    Exclude visitors scoring below a minimum threshold from promotional blast campaigns. You spend less, your sending domain stays healthier, and your message-to-conversion rate improves immediately.
+  </Card>
+  <Card title="Identify high-intent products" icon="magnifying-glass">
+    Review which products are generating the most organic high-intent engagement before any outreach. These are candidates for inventory prioritisation, early-access campaigns, and ad retargeting audiences.
+  </Card>
+</CardGroup>
+
+## Transparency: What Drives Any Score
+
+<Note>
+  Every intent score in Llea links back to the individual signals that produced it. Open any customer or visitor profile in your dashboard and you will see the exact signal breakdown behind their score — which events fired, how many sessions they have had on a given product, where they are in the funnel, and how their engagement has changed over time. There is no black box.
+</Note>
+
+## What Llea Deliberately Does Not Do
+
+Understanding Llea's boundaries is as important as understanding its capabilities.
+
+<Accordion title="No browser fingerprinting">
+  Llea never uses browser fingerprinting techniques — canvas, font enumeration, WebGL probing, or any other method of generating a device identifier without explicit consent. Visitor identification relies entirely on first-party cookies and local storage.
+</Accordion>
+
+<Accordion title="No cross-merchant data sharing">
+  Your store's data — customer profiles, order history, signal events, and the trained model — is never shared with, pooled with, or used to inform scores at any other merchant's store. Every model is siloed per store. A competitor using Llea learns nothing from your customers.
+</Accordion>
+
+<Accordion title="No training on your data for foundation models">
+  Llea uses AI infrastructure (Google Cloud Vertex AI) for copy generation and ranking. Per Google Cloud's Generative AI terms, your prompts and data are not used to train Google's foundation models. Llea also does not authorise any sub-processor to use merchant or shopper data for foundation model training.
+</Accordion>

@@ -1,0 +1,87 @@
+{
+  "projectType": "saas",
+  "projectName": "Llea",
+  "projectDescription": "Llea is a customer intelligence platform for Shopify brands that scores every visitor by purchase intent in real time and triggers personalised outreach through your existing email, SMS, and WhatsApp tools.",
+  "theme": "luma",
+  "primaryColor": "#ddf32a",
+  "lightColor": "#7b871c",
+  "darkColor": "#080804",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "how-intent-works"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/overview",
+              "integrations/shopify-flow",
+              "integrations/klaviyo",
+              "integrations/whatsapp",
+              "integrations/sms",
+              "integrations/email-platforms",
+              "integrations/meta-google-ads",
+              "integrations/headless-custom"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "features/marketing-personalisation",
+              "features/stock-clearance",
+              "features/customer-profiles",
+              "features/segments-and-audiences"
+            ]
+          },
+          {
+            "group": "Using Llea",
+            "pages": [
+              "using-llea/daily-workflow",
+              "using-llea/alerts",
+              "using-llea/team-roles",
+              "using-llea/exporting-data"
+            ]
+          },
+          {
+            "group": "Account & Billing",
+            "pages": [
+              "account/pricing",
+              "account/trial-and-billing",
+              "account/privacy-and-compliance"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Real-time purchase intent scoring (0–100) powered by 100+ behavioural, transactional, contextual, and demographic signals",
+    "1:1 Marketing Personalisation — right product, right channel, right time per individual shopper",
+    "Smart Stock Clearance — matches slow-moving inventory to the buyers most likely to purchase",
+    "Shopify-native install via web pixel — no theme edits, no code, no developer required",
+    "Shopify Flow integration as the central delivery hub routing to Klaviyo, WhatsApp, SMS, and more",
+    "AI Composer generating personalised outreach in brand voice with single-use named discount codes",
+    "Agency roster view for managing multiple client stores from a single dashboard",
+    "Per-store ML model trained on your own purchase history — never pooled across merchants",
+    "GDPR, CCPA, and DPDPA compliant with full data deletion on uninstall within 48 hours"
+  ],
+  "publicApiSurface": [
+    "Shopify Web Pixel (auto-registered — no manual install)",
+    "Shopify Flow custom event triggers (intent threshold crossings)",
+    "HTTP webhook hand-off for WhatsApp (Wati, AiSensy, Interakt, Gallabox), MoEngage, CleverTap, WebEngage",
+    "Klaviyo live segment sync",
+    "Meta & Google Ads weekly top-intent cohort export (lookalike seeds)",
+    "Headless/Hydrogen client SDK (~20 lines) for custom storefronts",
+    "CSV export for any segment or audience",
+    "Shopify customer tag sync",
+    "Alerts via email, Slack, or webhook"
+  ]
+}

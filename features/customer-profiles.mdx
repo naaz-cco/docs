@@ -1,0 +1,121 @@
+---
+title: "Customer Profiles: Every Shopify Shopper, Fully Scored"
+sidebarTitle: "Customer Profiles"
+description: "Llea builds a live, scored profile for every shopper — intent score, behavioural segment, best channel, LTV, AOV, and predicted next purchase date."
+---
+
+Llea builds a continuously updated profile for every person who touches your Shopify store — whether they have placed ten orders or arrived anonymously five minutes ago. Each profile consolidates behavioural signals, transactional history, and predictive outputs into a single record you can inspect, filter, and act on. When you open a customer profile in Llea, you see not just what a customer has done, but what they are likely to do next and the best way to reach them when that moment arrives.
+
+## What's in a Customer Profile
+
+Every Llea profile contains the following fields. All values update in real time as new signals arrive; the underlying per-store model retrains weekly to keep predictions current.
+
+| Field | Description |
+|---|---|
+| **Intent Score** | A 0–100 score reflecting the customer's current likelihood to purchase. Calculated from engagement depth, funnel progression, repeat behaviour, and recency/velocity signals. Links back to the underlying data so you can see exactly why the score is what it is. |
+| **Behavioural Segment** | One of four segments — Loyalist, Impulse Buyer, Researcher, or Hesitant Explorer — assigned by the per-store model based on purchase patterns and browsing behaviour. |
+| **Order History** | Full Shopify order history: every SKU purchased, the order date, and the amount paid. Used for co-purchase recommendations and discount-responder detection. |
+| **Current Browsing Item** | The product the customer is most actively engaging with right now, based on recent sessions and engagement depth signals. |
+| **Predicted Next Purchase Date** | The date window in which the customer is most likely to make their next purchase, derived from purchase rhythm and current intent trajectory. |
+| **Best Contact Channel** | Email, WhatsApp, or SMS — whichever channel this customer has historically engaged with most reliably. |
+| **Best Send Time** | The hour of day and day of week at which this customer is most likely to open and click, based on their personal engagement history. |
+| **Lifetime Value (LTV)** | Total revenue attributed to this customer across all orders. |
+| **Average Order Value (AOV)** | Mean spend per order, shown alongside the store average for context. |
+| **Purchase Frequency** | How often this customer buys — used to determine whether they are in an active purchase window or a dormant phase. |
+
+## Behavioural Segments
+
+Llea assigns every customer to one of four behavioural segments. Segment assignment is driven by the per-store model, not a manual rule set — the model learns from your specific catalogue and customer base what each pattern looks like in your context. Segments inform both the tone of AI-composed outreach and the channel routing logic.
+
+<CardGroup cols={2}>
+  <Card title="🏆 Loyalist" icon="star">
+    **Pattern:** High purchase frequency, strong brand affinity, consistent full-price buying, low churn risk.
+
+    **How to engage:** Reward loyalty with early access and exclusive drops. These customers do not need discounts to convert — over-discounting here erodes margin unnecessarily.
+
+    **Use in campaigns:** Priority audience for new product launches, VIP early access, and referral programmes.
+  </Card>
+  <Card title="⚡ Impulse Buyer" icon="bolt">
+    **Pattern:** Short consideration cycles, high discount sensitivity, responds quickly to urgency and scarcity signals.
+
+    **How to engage:** Lead with time-bound offers, countdown timers, and limited-stock callouts. Keep copy short and the offer front-and-centre.
+
+    **Use in campaigns:** Clearance sequences, flash sales, and triggered outreach when intent crosses the high-threshold band (90+).
+  </Card>
+  <Card title="🔍 Researcher" icon="magnifying-glass">
+    **Pattern:** Long sessions on product detail pages, reads specifications and reviews, compares variants before deciding.
+
+    **How to engage:** Provide depth — materials, sizing guides, technical specs, brand story. Earn the decision through information, not urgency.
+
+    **Use in campaigns:** Educational email sequences, detailed product spotlights, review-led nurture content.
+  </Card>
+  <Card title="🤔 Hesitant Explorer" icon="circle-question">
+    **Pattern:** Multiple browse sessions, frequent cart abandonment, low discount usage, needs reassurance to cross the purchase threshold.
+
+    **How to engage:** Remove friction. Surface verified reviews, prominent return policies, and fit guidance specific to their size or variant of interest.
+
+    **Use in campaigns:** Abandonment recovery, social-proof sequences, and clearance outreach that leads with reassurance rather than urgency.
+  </Card>
+</CardGroup>
+
+<Note>
+  Segment labels are descriptive shortcuts, not permanent categories. A customer's segment can change as their behaviour evolves — a Hesitant Explorer who completes a purchase and builds order history may shift toward Loyalist over time. Llea retrains the per-store model weekly to keep segment assignments accurate.
+</Note>
+
+## Anonymous vs Known Visitors
+
+Most Shopify traffic arrives anonymously on the first visit. Llea handles this gracefully to ensure no intent history is lost when a visitor eventually identifies themselves.
+
+<Tabs>
+  <Tab title="Anonymous Visitors">
+    When an unidentified visitor lands on your store, Llea immediately assigns them a **pseudonymous visitor ID** stored as a cookie or local-storage key. The visitor is scored and tracked exactly like a logged-in customer — engagement depth, funnel progression, repeat sessions, and recency signals all accumulate against that ID.
+
+    The profile is incomplete (no name, email, or order history), but the intent score and behavioural signals are fully live. Anonymous visitors can appear in your high-intent audience views and feed retargeting exports while still unidentified.
+
+    <Warning>
+      Llea does not use browser fingerprinting. If a visitor clears cookies or switches to a private browser window, they will receive a new pseudonymous ID and their prior anonymous history will not carry over until they identify themselves.
+    </Warning>
+  </Tab>
+  <Tab title="Known Customers">
+    The moment a visitor enters their email address — at checkout, via a popup, or through a Shopify account login — Llea **stitches their anonymous history to their Shopify customer ID** automatically. All prior sessions, intent scores, and behavioural signals are preserved and merged into the persistent customer profile. No history is lost.
+
+    From this point forward, the profile is fully enriched: order history, best channel, best send time, segment, LTV, and AOV are all populated and kept current.
+  </Tab>
+</Tabs>
+
+## How Profiles Update
+
+Llea's profiles are designed to reflect the current state of each customer, not a snapshot from last week's sync.
+
+- **Real-time signals:** Intent scores, current browsing items, and funnel progression signals update continuously as the customer interacts with your store.
+- **Transactional data:** Order history, LTV, AOV, and purchase frequency sync from the Shopify Admin API whenever a new order is placed or updated.
+- **Model retraining:** The per-store predictive model — which determines segment, predicted next purchase date, and best send time — retrains weekly on your store's latest purchase history. This keeps the model calibrated as your catalogue and customer base evolve.
+- **Channel preference:** Best contact channel and best send time update as new engagement events arrive across Email, WhatsApp, and SMS.
+
+<Tip>
+  On a mature model (4–8 weeks after install), the top-decile intent customers in your store convert at roughly 4–7× the rate of your average visitor. Use the intent score to concentrate your outreach spend where it will have the highest return, and suppress the bottom decile to protect deliverability.
+</Tip>
+
+## Using Profiles in Campaigns
+
+Customer profiles are not just a reporting view — they are the data layer that powers every Llea campaign action.
+
+**Inspecting the "why" behind a score:** Click any customer's intent score to see the underlying signals that produced it — which sessions contributed, which products they engaged with, which funnel steps they completed. There is no black box: every score is fully traceable.
+
+**Triggering personalised outreach:** When a customer's intent score crosses your configured threshold (default: 85), Llea automatically feeds their profile into the AI Composer. The composer uses their segment, current browsing item, order history, best channel, and best send time to generate the outreach — no manual setup per customer required.
+
+**Reviewing before sending:** From the campaign view, click any customer in the proposed outreach audience to verify their profile data and the composed message before it is delivered. You can remove individual customers manually if a profile looks inconsistent.
+
+**Building audiences for downstream tools:** Export any filtered slice of profiles as a Klaviyo audience, WhatsApp broadcast list, Shopify customer tag, CSV, or retargeting export. See [Segments and Audiences](/features/segments-and-audiences) for full detail on filtering and export options.
+
+<Accordion title="How long does it take for a new customer to have a complete profile?">
+  A customer's profile begins accumulating signal from their very first page view — intent score and current browsing item populate within the first session. The richer predictive fields (predicted next purchase date, best send time, and behavioural segment) require enough history to train the per-store model, which typically means 2–4 sessions and at least one completed order.
+
+  For brand-new stores, the per-store model becomes meaningful after approximately 4 weeks of data collection. During that ramp-up period, Llea applies conservative defaults — a lower intent confidence and a broader channel preference — so no incorrect outreach fires.
+</Accordion>
+
+<Accordion title="What happens to a customer's profile when they unsubscribe from email?">
+  An email unsubscribe updates the customer's best contact channel immediately. Llea will no longer route outreach to email for that customer and will shift to WhatsApp or SMS if the customer has shown engagement on those channels. If no alternative channel has engagement history, the customer moves to the suppressed state until a valid channel preference re-establishes itself.
+
+  Profile data (intent score, segment, LTV, order history) is retained — only the channel routing is affected by the unsubscribe.
+</Accordion>

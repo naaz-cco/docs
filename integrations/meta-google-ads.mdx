@@ -1,0 +1,89 @@
+---
+title: "Meta and Google Ads: Intent-Based Ad Audiences"
+sidebarTitle: "Meta & Google Ads"
+description: "Export your top-intent customer cohort to Meta and Google Ads for sharper retargeting and higher-quality lookalike audiences that cut CAC by 15–25%."
+---
+
+Llea exports your highest-intent customers to Meta and Google Ads on a weekly cadence, giving your ad campaigns a smarter foundation than a raw list of all purchasers. Because the seed audience is filtered to shoppers who are actively showing purchase intent, your retargeting budget concentrates on warm audiences, and any lookalike you build reflects genuine buying behaviour rather than the noise that comes with an unfiltered customer list.
+
+## Why intent-seeded audiences outperform "all customers"
+
+Most ad retargeting targets everyone who ever bought from your store. That pool includes one-off buyers, return-driven purchasers, and lapsed customers with no current interest — people who will consume impressions without converting. Llea's intent filter strips those shoppers out, leaving you a cohort that is actively browsing, adding to cart, or otherwise signalling that a purchase is near.
+
+<CardGroup cols={2}>
+  <Card title="Retargeting" icon="bullseye">
+    Spend your retargeting budget only on warm, high-intent shoppers. Because you are bidding on an audience that already wants to buy, cost-per-conversion drops. D2C merchants on Llea see ad CAC fall **15–25%** after switching to intent-seeded retargeting audiences.
+  </Card>
+  <Card title="Lookalike Audiences" icon="users">
+    Meta and Google build lookalikes by finding people who resemble your seed. Seed with your top-intent cohort instead of all purchasers and the lookalike inherits that quality signal — producing a sharper 1% lookalike that prospecting campaigns can reach without wasted spend.
+  </Card>
+</CardGroup>
+
+## How the export works
+
+Llea analyses every shopper session and scores each customer's current purchase intent. Once a week, Llea compiles the top-intent cohort — the shoppers sitting in the highest intent decile right now — into an export file containing hashed email addresses and phone numbers. You upload that file to Meta or Google as a Custom Audience (or enable the automated upload to skip the manual step). The hashing happens before export using SHA-256, so raw PII never leaves your environment in plaintext.
+
+<Info>
+  The export contains SHA-256 hashed email addresses and/or phone numbers. Both Meta and Google accept pre-hashed lists for Customer Match uploads, so no additional formatting is required on your end.
+</Info>
+
+## Setting up Meta (Facebook and Instagram)
+
+<Steps>
+  <Step title="Open Exports in the Llea dashboard">
+    In your Llea dashboard, navigate to **Exports → Ad Audiences**. You will see a list of available export destinations.
+  </Step>
+  <Step title="Select Meta and configure the schedule">
+    Choose **Meta** as the destination. Set the export schedule to **Weekly** (recommended). You can also choose which intent threshold defines your top cohort — the default is the top 10% by intent score.
+  </Step>
+  <Step title="Download the CSV or enable automatic upload">
+    Either download the CSV manually each week, or connect your Meta Ads account to allow Llea to upload the file automatically. Automatic upload keeps your Custom Audience fresh without any manual steps.
+  </Step>
+  <Step title="Upload to Meta Ads Manager">
+    In **Meta Ads Manager**, go to **Audiences → Custom Audiences → Customer list** and upload the CSV. Meta will hash any unhashed fields automatically, but your file is already hashed so processing is immediate.
+  </Step>
+  <Step title="Create a Lookalike Audience">
+    Once Meta has processed the Custom Audience, select it as the source and create a **Lookalike Audience**. A **1% lookalike** is the recommended starting point — it trades reach for precision, which is exactly what an intent-filtered seed enables.
+  </Step>
+</Steps>
+
+## Setting up Google Ads
+
+<Steps>
+  <Step title="Open Exports in the Llea dashboard">
+    In your Llea dashboard, navigate to **Exports → Ad Audiences**.
+  </Step>
+  <Step title="Select Google Ads as the destination">
+    Choose **Google Ads** from the destination list. As with Meta, set the export cadence to **Weekly** and configure your intent threshold.
+  </Step>
+  <Step title="Download the CSV or enable automatic upload">
+    Download the export file, or connect your Google Ads account for automated weekly uploads. The file format conforms to Google's Customer Match specification.
+  </Step>
+  <Step title="Upload via Audience Manager">
+    In **Google Ads**, go to **Tools → Audience Manager → Customer Match** and upload the file. Google will process the hashed values and match them against signed-in users.
+  </Step>
+  <Step title="Apply the audience to your campaigns">
+    Add the Customer Match audience to relevant campaigns. Use **Observation** mode first to measure performance lift without restricting reach, then switch to **Targeting** mode on campaigns where you want to reach only the matched audience.
+  </Step>
+</Steps>
+
+## Suppressing low-intent shoppers
+
+The same export you use for retargeting can work in reverse. Add your **low-intent shoppers** as an exclusion audience on cold acquisition campaigns to stop spending impressions on people who are unlikely to convert in the current cycle.
+
+<Tabs>
+  <Tab title="Meta exclusion">
+    In Meta Ads Manager, open your cold acquisition campaign and navigate to **Ad Set → Audience**. Under **Exclusions**, add the low-intent custom audience. Meta will exclude matched users from seeing the ad.
+  </Tab>
+  <Tab title="Google exclusion">
+    In Google Ads, open the campaign and go to **Audiences**. Add the Customer Match list as a **Negative Audience** at the campaign or ad group level. This suppresses the matched list from your prospecting targeting.
+  </Tab>
+</Tabs>
+
+<Tip>
+  Use your top-intent cohort as the lookalike seed rather than "all purchasers." The intent filter removes one-off buyers and returns-driven purchasers who share no behavioural signal with your best customers — and who would otherwise dilute the lookalike quality.
+</Tip>
+
+<Note>
+  Exports run weekly by default. If your store has high traffic volume and you need a more frequent refresh — for example, during a sale period — contact [Llea support](mailto:support@llea.ai) to discuss a custom cadence.
+</Note>

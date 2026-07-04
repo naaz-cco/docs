@@ -1,0 +1,82 @@
+---
+title: "SMS Integration: Postscript and Attentive with Llea"
+sidebarTitle: "SMS"
+description: "Connect Postscript or Attentive to Llea via Shopify Flow to trigger personalised, intent-scored SMS messages for your highest-intent shoppers."
+---
+
+Llea triggers SMS messages for shoppers who reach the highest tier of purchase intent — a score of 90 or above. At that threshold, a direct, time-sensitive offer via SMS lands within the 24–48 hour conversion window where it performs best. Llea supports two SMS providers — **Postscript** and **Attentive** — both of which connect through Shopify Flow using the same hand-off pattern. Your existing SMS templates, keyword flows, and subscriber lists stay untouched; Llea simply supplies the intent-based trigger that tells your provider when to send.
+
+## When SMS Fires
+
+The default intent score threshold for SMS is **90**, identical to the WhatsApp threshold. Both channels share the highest-intent band (90–100), and which one fires depends on the channel routing you configure in your Llea dashboard. You can raise or lower the SMS threshold independently of WhatsApp under **Settings → Channel Routing**.
+
+<Info>
+  For shoppers in the 70–89 intent band, use personalised email instead of SMS. SMS and WhatsApp are interruptive channels — reserve them for the shoppers whose intent justifies that attention cost.
+</Info>
+
+## Connect Your SMS Provider
+
+<Tabs>
+  <Tab title="Postscript">
+    <Steps>
+      <Step title="Enable the Shopify Flow integration in Postscript">
+        In your Postscript dashboard, go to **Integrations** and find the **Shopify Flow** integration. Enable it. Postscript registers a native **Trigger SMS** action in Shopify Flow once the integration is active.
+      </Step>
+      <Step title="Create a Shopify Flow Automation on the Llea event">
+        In Shopify admin, open **Flow** and create a new Automation. Set the trigger to the Llea **"High Intent Customer"** event. Add a condition: `intent_score is greater than or equal to 90` (or your custom threshold). Only shoppers who clear this threshold enter the flow.
+      </Step>
+      <Step title="Add the Postscript Trigger SMS action">
+        Under the condition step, add a **Postscript: Trigger SMS** action. Select the SMS template or keyword flow you want to fire. Postscript will handle compliance checks, quiet hours, and carrier delivery from here.
+      </Step>
+      <Step title="Map event properties to your SMS template">
+        In the Postscript action panel, map `trigger.recommended_product_title` and `trigger.personalised_discount_code` to the corresponding variables in your SMS template. See the [example template](#example-sms-template) below for a ready-to-use starting point.
+      </Step>
+    </Steps>
+  </Tab>
+  <Tab title="Attentive">
+    <Steps>
+      <Step title="Enable Attentive's Shopify Flow connector">
+        In your Attentive dashboard, navigate to **Integrations → Shopify Flow** and activate the connector. Attentive adds a native **Send SMS** action to Shopify Flow once the connector is enabled.
+      </Step>
+      <Step title="Create a Shopify Flow Automation on the Llea event">
+        In Shopify admin, open **Flow** and create a new Automation. Set the trigger to the Llea **"High Intent Customer"** event. Add a condition: `intent_score is greater than or equal to 90`. This ensures only your top-intent shoppers receive the message.
+      </Step>
+      <Step title="Add the Attentive Send SMS action with template variables">
+        Under the condition step, add an **Attentive: Send SMS** action. Select your message template and map the Llea event properties — `customer.first_name`, `trigger.recommended_product_title`, and `trigger.personalised_discount_code` — to the template variables. Save and enable the Automation.
+      </Step>
+    </Steps>
+  </Tab>
+</Tabs>
+
+## SMS Character Limits
+
+Keep every SMS message under **160 characters** for single-segment delivery. Multi-segment messages (161+ characters) are split by carriers, arrive out of order on some devices, and are billed as two messages. Use the Llea event properties directly — they are already concise — rather than adding verbose copy around them.
+
+<Accordion title="Character count guidance for Llea event properties">
+  - `{{ customer.first_name }}` — typically 4–10 characters
+  - `{{ trigger.recommended_product_title }}` — product titles vary; trim long titles in your Shopify admin or use a shortened alias in your template
+  - `{{ trigger.personalised_discount_code }}` — format is `NAME-DISCOUNT` (e.g. `SARAH-10`), typically 8–12 characters
+
+  Write your template with the longest realistic values substituted in, and confirm the total stays under 160 characters before going live.
+</Accordion>
+
+## Example SMS Template
+
+Use this as a starting point in Postscript or Attentive. It fits comfortably under 160 characters with typical product title lengths.
+
+```
+Hi {{ customer.first_name }}! Your {{ trigger.recommended_product_title }} is almost gone.
+Use {{ trigger.personalised_discount_code }} for 10% off — expires in 48 hrs. Reply STOP to opt out.
+```
+
+<Tip>
+  Test your SMS flow with a real session on a sandbox product before enabling it for your full intent threshold. Trigger a session manually on a test product, confirm the Llea score reaches 90, and verify the message arrives with all variables populated correctly before opening the flow to live traffic.
+</Tip>
+
+## Opt-Out Handling
+
+Llea respects opt-outs across every channel automatically. When a shopper replies STOP to an SMS, Llea suppresses them from all Llea-triggered flows — not just SMS, but also WhatsApp and email. You do not need to maintain separate suppression lists per channel; the opt-out propagates globally the moment it is recorded.
+
+<Note>
+  SMS is ideal for the 90–100 intent band. For shoppers in the 70–89 band, use personalised email instead — it matches the patience of a shopper who is researching rather than ready to buy right now.
+</Note>
